@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cadastro de Anuncio</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <iond-grid>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-tittle>Novo Anuncio</ion-card-tittle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item>
+              <ion-label position="floating">Titulo da Oferta:</ion-label>
+              <ion-input type="any"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Descrição:</ion-label>
+              <ion-input type="text"></ion-input>
+            </ion-item>
+            <!--
+            <ion-item>
+              <ion-label>MM DD YY</ion-label>
+              <ion-datetime displayFormat="MM DD YY" placeholder="Select Date"></ion-datetime>
+            </ion-item>
+            -->
+            <div margin-vertical text-right>
+              <ion-button fill="outline" color="danger">Cancelar</ion-button>
+              <ion-button>Publicar</ion-button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </iond-grid> 
+</ion-content>
