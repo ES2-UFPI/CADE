@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Anuncio } from './anuncio';
 import { Observable } from 'rxjs';
+import { Perfil } from './perfil';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,9 @@ export class AnuncioService {
   */
   findAll():Observable<Anuncio[]>{
     return this._db.collection('anuncios').valueChanges({idField:'id'}) as Observable<Anuncio[]>
+  }
+  
+  findByPerfil(perfil:Perfil):Observable<Anuncio[]>{
+    return this._db.collection('anuncios',ref => ref.where('categories', '==', perfil.categories)).valueChanges({idField:'id'}) as Observable<Anuncio[]>
   }
 }
