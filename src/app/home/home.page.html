@@ -2,9 +2,6 @@
   <ion-toolbar>
     
     <ion-title>
-        <button ion-button (click)="voltar()">
-            <ion-icon name="arrow-round-back"></ion-icon>
-        </button>
       CADÊ - Anúncios
     </ion-title>
   </ion-toolbar>
@@ -14,25 +11,16 @@
 <ion-content>
   <div class="ion-padding">
     Nenhum anúncio encontrado no momento.
-    
   </div>
 
-  <div>
-
-  </div>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
   
 </ion-content>
 
-<ion-footer>
-    <ion-toolbar>
-        <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-            <ion-refresher-content
-              pullingIcon="arrow-dropdown"
-              pullingText="Pull to refresh"
-              refreshingSpinner="circles"
-              refreshingText="Refreshing...">
-            </ion-refresher-content>
-          </ion-refresher>
-    </ion-toolbar>
-    
-</ion-footer>
