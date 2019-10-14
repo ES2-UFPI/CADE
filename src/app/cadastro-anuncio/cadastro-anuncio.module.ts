@@ -13,7 +13,6 @@ const routes: Routes = [
     component: CadastroAnuncioPage
   }
 ];
-
 @NgModule({
   imports: [
     CommonModule,

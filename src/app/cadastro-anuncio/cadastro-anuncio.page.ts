@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Anuncio } from '../anuncio';
 
 @Component({
   selector: 'app-cadastro-anuncio',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cadastro-anuncio.page.scss'],
 })
 export class CadastroAnuncioPage implements OnInit {
-
+  anuncio: Anuncio[];
   constructor() { }
 
   ngOnInit() {
