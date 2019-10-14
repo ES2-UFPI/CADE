@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Anuncio } from './anuncio';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { Perfil } from './perfil';
 
 @Injectable({
@@ -24,7 +24,12 @@ export class AnuncioService {
     return this._db.collection('anuncios').valueChanges({idField:'id'}) as Observable<Anuncio[]>
   }
   
-  findByPerfil(perfil:Perfil):Observable<Anuncio[]>{
-    return this._db.collection('anuncios',ref => ref.where('categories', '==', perfil.categories)).valueChanges({idField:'id'}) as Observable<Anuncio[]>
+  findByPerfil(perfil:Perfil):Observable<Anuncio[][]>{
+    var observables:Observable<Anuncio[]>[] = []
+    perfil.categories.forEach(cat => {
+      observables.push(this._db.collection('anuncios',ref => ref.where('category', '==', cat))
+        .valueChanges({idField:'id'}) as Observable<Anuncio[]>)
+    });
+    return forkJoin(observables)
   }
 }
