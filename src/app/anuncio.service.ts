@@ -15,11 +15,20 @@ export class AnuncioService {
   }
 
   /* USAGE:
-  findAll().subscribe(anuncios=>{
-    //do something with anuncios
+  findAll().subscribe(
+    anuncios => {
+    this.anuncio = anuncios;
+    console.log(this.anuncio);
+    if (this.anuncio.length > 0) {
+      this.anuncio[0].visivel = true;
+    }
   })
   */
+ 
   findAll():Observable<Anuncio[]>{
     return this._db.collection('anuncios').valueChanges({idField:'id'}) as Observable<Anuncio[]>
   }
+
+  
+
 }
