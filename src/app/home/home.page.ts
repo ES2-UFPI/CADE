@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AnuncioService } from '../anuncio.service';
+import { Anuncio } from '../anuncio';
 
 @Component({
   selector: 'app-home',
@@ -7,14 +9,23 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  anuncios: Anuncio[]
 
-  voltar() {
+  constructor(private _anuncioService: AnuncioService) {}
 
+  ionViewWillEnter(){
+    this.findAllAnuncios()
   }
-
+  
+  findAllAnuncios(){
+    this._anuncioService.findAll()
+    .subscribe(anuncios =>{
+      this.anuncios = anuncios
+    })
+  }
+  
   doRefresh(event) {
-    console.log('Begin async operation');
+    this.findAllAnuncios()
 
     setTimeout(() => {
       console.log('Async operation has ended');

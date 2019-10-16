@@ -10,7 +10,25 @@
 
 <ion-content>
   <div class="ion-padding">
-    Nenhum anúncio encontrado no momento.
+    <ion-list>
+      <ion-item *ngIf="!anuncios || anuncios.length <= 0">
+          Nenhum anúncio encontrado no momento.
+      </ion-item>
+        <ion-item *ngFor="let an of anuncios">
+          <ion-card>
+
+            <ion-card-header>
+              <ion-card-subtitle>{{an.categoria}}</ion-card-subtitle>
+              <ion-card-title>{{an.titulo}}</ion-card-title>
+            </ion-card-header>
+          
+            <ion-card-content>
+              {{an.descricao}}
+            </ion-card-content>
+
+          </ion-card>
+        </ion-item>
+      </ion-list>
   </div>
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
