@@ -32,12 +32,12 @@
              
               <ion-item>
                 <ion-label>Data de inicio:</ion-label>
-                <ion-datetime displayFormat="DD MM YY" placeholder="Escolha a data" formControlName="dataInicial"></ion-datetime>
+                <ion-datetime displayFormat="DD MM YY, h:mm A" [(ngModel)]="myDate"  formControlName="dataInicial"></ion-datetime>
               </ion-item>
   
               <ion-item>
                 <ion-label>Data de fim:</ion-label>
-                <ion-datetime displayFormat="DD MM YY" placeholder="Escolha a data" formControlName="dataFinal"></ion-datetime>
+                <ion-datetime displayFormat="DD MM YY, h:mm A" placeholder="Escolha a data" formControlName="dataFinal"></ion-datetime>
               </ion-item>
              
               <div margin-vertical text-right>

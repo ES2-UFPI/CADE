@@ -12,16 +12,17 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./cadastro-anuncio.page.scss'],
 })
 export class CadastroAnuncioPage implements OnInit {
+  myDate: String = new Date().toISOString();
   anuncioForm: FormGroup;
-  categorias: String[] = []
+  categorias: string[] = []
 
   constructor(private _form: FormBuilder,
-    private _router: Router,
-    private _anuncioService: AnuncioService,
-    private _alert: AlertController,
+              private _router: Router,
+              private _anuncioService: AnuncioService,
+              private _alert: AlertController,
     ) {
-      this.categorias = Object.keys(Categories).map(k => Categories[k as any])
-      console.log(this.categorias)
+      this.categorias = Object.keys(Categories).map(k => Categories[k as any]);
+      console.log(this.categorias);
       this.anuncioForm = this._form.group({
         titulo: ['', Validators.required],
         descricao: ['', Validators.required],
@@ -34,21 +35,21 @@ export class CadastroAnuncioPage implements OnInit {
   ngOnInit() {
   }
 
-  async cadAnuncio(){
-    console.log(this.anuncioForm.value)
-    this._anuncioService.save(this.anuncioForm.value as Anuncio)
+  async cadAnuncio() {
+    console.log(this.anuncioForm.value);
+    this._anuncioService.save(this.anuncioForm.value as Anuncio);
     const alert = await this._alert.create({
       header: 'Cadastro realizado',
       message: 'Anúncio cadastrado',
       buttons: ['OK']
-    })
-    await alert.present()
-    await alert.onDidDismiss()
-    this._router.navigate(['/home'])
+    });
+    await alert.present();
+    await alert.onDidDismiss();
+    this._router.navigate(['/home']);
   }
 
-  cancelar(){
-    this._router.navigate(['/home'])
+  cancelar() {
+    this._router.navigate(['/home']);
   }
 
 }
