@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyCXElhPvrhSCPmzLIu8I4xiK87zCUXBYXw",
-    authDomain: "cade-308d8.firebaseapp.com",
-    databaseURL: "https://cade-308d8.firebaseio.com",
-    projectId: "cade-308d8",
-    storageBucket: "cade-308d8.appspot.com",
-    messagingSenderId: "18941254229",
-    appId: "1:18941254229:web:6f5de52f92c0460d0112dc"
+    apiKey: "AIzaSyCOYRJogIfohRMkib8Td1Rpyk3mTFKCecQ",
+    authDomain: "cade-eed42.firebaseapp.com",
+    databaseURL: "https://cade-eed42.firebaseio.com",
+    projectId: "cade-eed42",
+    storageBucket: "cade-eed42.appspot.com",
+    messagingSenderId: "1054435576619",
+    appId: "1:1054435576619:web:bbf6e5ff25535b8a57936e"
   }
 };
 
