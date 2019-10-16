@@ -12,7 +12,7 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./cadastro-anuncio.page.scss'],
 })
 export class CadastroAnuncioPage implements OnInit {
-  myDate: String = new Date().toISOString();
+  myDate: string = new Date().toISOString();
   anuncioForm: FormGroup;
   categorias: string[] = []
 
