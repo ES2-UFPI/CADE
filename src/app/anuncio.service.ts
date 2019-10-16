@@ -9,10 +9,10 @@ import { Perfil } from './perfil';
 })
 export class AnuncioService {
 
-  constructor(private _db:AngularFirestore) { }
+  constructor(private _db: AngularFirestore) { }
 
-  save(anuncio:Anuncio){
-    this._db.collection('anuncios').add(anuncio)
+  save(anuncio: Anuncio) {
+    this._db.collection('anuncios').add(anuncio);
   }
 
   /* USAGE:
@@ -20,8 +20,8 @@ export class AnuncioService {
     //do something with anuncios
   })
   */
-  findAll():Observable<Anuncio[]>{
-    return this._db.collection('anuncios').valueChanges({idField:'id'}) as Observable<Anuncio[]>
+  findAll(): Observable<Anuncio[]> {
+    return this._db.collection('anuncios').valueChanges({idField: 'id'}) as Observable<Anuncio[]>;
   }
   
   findByPerfil(perfil:Perfil):Observable<Anuncio[][]>{

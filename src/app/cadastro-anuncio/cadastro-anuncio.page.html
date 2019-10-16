@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cadastro de Anuncio</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="anuncioForm" (ngSubmit)="cadAnuncio()">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-md="6" offset-md="3">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Novo Anuncio</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-item>
+                <ion-label position="floating">Titulo da Oferta:</ion-label>
+                <ion-input type="text" formControlName="titulo"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">Descrição:</ion-label>
+                <ion-textarea formControlName="descricao"></ion-textarea>
+              </ion-item>
+             
+              <ion-item>
+                <ion-label>Data de inicio:</ion-label>
+                <ion-datetime displayFormat="DD MM YY" placeholder="Escolha a data" formControlName="dataInicial"></ion-datetime>
+              </ion-item>
+  
+              <ion-item>
+                <ion-label>Data de fim:</ion-label>
+                <ion-datetime displayFormat="DD MM YY" placeholder="Escolha a data" formControlName="dataFinal"></ion-datetime>
+              </ion-item>
+             
+              <div margin-vertical text-right>
+                <ion-button fill="outline" color="danger" (click)="cancelar">Cancelar</ion-button>
+                <ion-button type="submit" [disabled]="!anuncioForm.valid">Publicar</ion-button>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid> 
+  </form>
+</ion-content>
