@@ -1,0 +1,15 @@
+export enum Categories {
+    Noticias = "Noticias",
+    Roupas = "Roupas",
+    Automoveis = "Automóveis",
+    Eletronicos = "Eletrônicos",
+    Moveis = "Móveis",
+    Imoveis = "Imóveis",
+    Sapatos = "Sapatos",
+    Acessorios = "Acessórios",
+    Livros = "Livros",
+    Supermercado = "Supermercado",
+    Comes_E_Bebes = "Comes e Bebes",
+    Transporte = "Transporte",
+    Outros = "Outros",
+}

@@ -17,10 +17,18 @@
                 <ion-label position="floating">Titulo da Oferta:</ion-label>
                 <ion-input type="text" formControlName="titulo"></ion-input>
               </ion-item>
+
               <ion-item>
                 <ion-label position="floating">Descrição:</ion-label>
                 <ion-textarea formControlName="descricao"></ion-textarea>
               </ion-item>
+
+              <ion-item>
+                  <ion-label>Categoria</ion-label>
+                  <ion-select interface="popover" formControlName="categoria">
+                    <ion-select-option *ngFor="let cat of categorias">{{cat}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
              
               <ion-item>
                 <ion-label>Data de inicio:</ion-label>
@@ -33,7 +41,7 @@
               </ion-item>
              
               <div margin-vertical text-right>
-                <ion-button fill="outline" color="danger" (click)="cancelar">Cancelar</ion-button>
+                <ion-button fill="outline" color="danger" (click)="cancelar()">Cancelar</ion-button>
                 <ion-button type="submit" [disabled]="!anuncioForm.valid">Publicar</ion-button>
               </div>
             </ion-card-content>

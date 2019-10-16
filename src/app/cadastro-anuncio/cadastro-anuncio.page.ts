@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Categories } from '../Categories';
 import { Anuncio } from '../anuncio';
 import { AnuncioService } from '../anuncio.service';
 import { AlertController } from '@ionic/angular';
@@ -12,17 +13,22 @@ import { AlertController } from '@ionic/angular';
 })
 export class CadastroAnuncioPage implements OnInit {
   anuncioForm: FormGroup;
+  categorias: String[] = []
+
   constructor(private _form: FormBuilder,
     private _router: Router,
     private _anuncioService: AnuncioService,
     private _alert: AlertController,
     ) {
-    this.anuncioForm = this._form.group({
-      titulo: ['', Validators.required],
-      descricao: ['', Validators.required],
-      dataInicial: ['', Validators.required],
-      dataFinal: ['', Validators.required],
-    });
+      this.categorias = Object.keys(Categories).map(k => Categories[k as any])
+      console.log(this.categorias)
+      this.anuncioForm = this._form.group({
+        titulo: ['', Validators.required],
+        descricao: ['', Validators.required],
+        categoria: ['', Validators.required],
+        dataInicial: ['', Validators.required],
+        dataFinal: ['', Validators.required],
+      });
   }
 
   ngOnInit() {

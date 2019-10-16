@@ -26,8 +26,8 @@ export class AnuncioService {
   
   findByPerfil(perfil:Perfil):Observable<Anuncio[][]>{
     var observables:Observable<Anuncio[]>[] = []
-    perfil.categories.forEach(cat => {
-      observables.push(this._db.collection('anuncios',ref => ref.where('category', '==', cat))
+    perfil.categorias.forEach(cat => {
+      observables.push(this._db.collection('anuncios',ref => ref.where('categoria', '==', cat))
         .valueChanges({idField:'id'}) as Observable<Anuncio[]>)
     });
     return forkJoin(observables)
