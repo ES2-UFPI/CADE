@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>cadastro-perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="cadPerfil()">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-md="6" offset-md="3">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Novo Perfil</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+
+              <ion-item>
+                <ion-label>Raio de Busca</ion-label>
+                <ion-select interface="popover" [(ngModel)]="perfil.raio" name="raio">
+                  <ion-select-option value="0.5">0.5 km (Perto de voçê)</ion-select-option>
+                  <ion-select-option value="2">2 km (Redondezas)</ion-select-option>
+                  <ion-select-option value="10">10 km (Zona)</ion-select-option>
+                  <ion-select-option value="50">50 km (Cidade)</ion-select-option>
+                  <ion-select-option value="-1">Sem raio</ion-select-option>
+                </ion-select>
+              </ion-item>
+              
+              <ion-list>
+                <ion-label>Categorias</ion-label>
+                <ion-item *ngFor="let cat of categoriasToggle">
+                  <ion-label>{{cat.val}}</ion-label>
+                  <ion-checkbox slot="start" [(ngModel)]="cat.isChecked" [ngModelOptions]="{standalone: true}"></ion-checkbox>
+                </ion-item>
+              </ion-list>
+
+              <div margin-vertical text-right>
+                <ion-button fill="outline" color="danger" (click)="cancelar()">Cancelar</ion-button>
+                <ion-button type="submit">Publicar</ion-button>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid> 
+  </form>
+</ion-content>

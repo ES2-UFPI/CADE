@@ -1,14 +1,47 @@
 <ion-header>
   <ion-toolbar>
+    
     <ion-title>
-      Ionic Blank
+      CADÊ - Anúncios
     </ion-title>
   </ion-toolbar>
+  
 </ion-header>
 
 <ion-content>
   <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+    <ion-list>
+      <ion-item *ngIf="!anuncios || anuncios.length <= 0">
+          Nenhum anúncio encontrado no momento.
+      </ion-item>
+        <ion-item *ngFor="let an of anuncios">
+          <ion-card>
+
+            <ion-card-header>
+              <ion-card-subtitle>{{an.categoria}}</ion-card-subtitle>
+              <ion-card-title>{{an.titulo}}</ion-card-title>
+            </ion-card-header>
+          
+            <ion-card-content>
+              {{an.descricao}}
+            </ion-card-content>
+
+          </ion-card>
+        </ion-item>
+      </ion-list>
   </div>
+
+  <ion-button fill="outline" href="/cad-anuncio">Cadastrar Anúncio</ion-button>
+  <ion-button fill="outline" href="/cad-perfil">Cadastrar Perfil</ion-button>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  
 </ion-content>
+
