@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Anuncio } from './anuncio';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, forkJoin, of, from, combineLatest } from 'rxjs';
 import { Perfil } from './perfil';
 
 @Injectable({
@@ -28,8 +28,8 @@ export class AnuncioService {
     var observables:Observable<Anuncio[]>[] = []
     perfil.categorias.forEach(cat => {
       observables.push(this._db.collection('anuncios',ref => ref.where('categoria', '==', cat))
-        .valueChanges({idField:'id'}) as Observable<Anuncio[]>)
+      .valueChanges({idField:'id'}) as Observable<Anuncio[]>)
     });
-    return forkJoin(observables)
+    return combineLatest(observables)
   }
 }
