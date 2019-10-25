@@ -41,6 +41,7 @@
               </ion-item>
              
               <div margin-vertical text-right>
+                <ion-button fill="outline" (click)="geolocation()">geolocation</ion-button>
                 <ion-button fill="outline" color="danger" (click)="cancelar()">Cancelar</ion-button>
                 <ion-button type="submit" [disabled]="!anuncioForm.valid">Publicar</ion-button>
               </div>

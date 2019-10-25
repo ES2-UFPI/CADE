@@ -5,6 +5,7 @@ import { Categories } from '../Categories';
 import { Anuncio } from '../anuncio';
 import { AnuncioService } from '../anuncio.service';
 import { AlertController } from '@ionic/angular';
+import { GeolocationService } from '../geolocation.service';
 
 @Component({
   selector: 'app-cadastro-anuncio',
@@ -20,6 +21,7 @@ export class CadastroAnuncioPage implements OnInit {
               private _router: Router,
               private _anuncioService: AnuncioService,
               private _alert: AlertController,
+              private _geo: GeolocationService,
     ) {
       this.categorias = Object.keys(Categories).map(k => Categories[k as any]);
       console.log(this.categorias);
@@ -50,6 +52,10 @@ export class CadastroAnuncioPage implements OnInit {
 
   cancelar() {
     this._router.navigate(['/home']);
+  }
+  
+  geolocation() {
+    this._router.navigate(['/cad-anuncio/maps']);
   }
 
 }
