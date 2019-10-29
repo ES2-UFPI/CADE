@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Categories } from '../Categories';
 import { Anuncio } from '../anuncio';
 import { AnuncioService } from '../anuncio.service';
 import { AlertController } from '@ionic/angular';
-import { GeolocationService } from '../geolocation.service';
+import { ILatLng} from '@ionic-native/google-maps/ngx';
 
 @Component({
   selector: 'app-cadastro-anuncio',
@@ -13,15 +13,16 @@ import { GeolocationService } from '../geolocation.service';
   styleUrls: ['./cadastro-anuncio.page.scss'],
 })
 export class CadastroAnuncioPage implements OnInit {
-  myDate: string = new Date().toISOString();
-  anuncioForm: FormGroup;
+  myDate: string = new Date().toISOString()
+  anuncioForm: FormGroup
   categorias: string[] = []
+  location:ILatLng
 
   constructor(private _form: FormBuilder,
               private _router: Router,
               private _anuncioService: AnuncioService,
               private _alert: AlertController,
-              private _geo: GeolocationService,
+              private _route: ActivatedRoute,
     ) {
       this.categorias = Object.keys(Categories).map(k => Categories[k as any]);
       console.log(this.categorias);
@@ -31,15 +32,20 @@ export class CadastroAnuncioPage implements OnInit {
         categoria: ['', Validators.required],
         dataInicial: ['', Validators.required],
         dataFinal: ['', Validators.required],
-      });
+      })
   }
 
   ngOnInit() {
+    const data = this._router.getCurrentNavigation().extras.state.location
+    console.log(data)
+    this.location = data
   }
 
   async cadAnuncio() {
     console.log(this.anuncioForm.value);
-    this._anuncioService.save(this.anuncioForm.value as Anuncio);
+    const anuncio = this.anuncioForm.value as Anuncio
+    anuncio.geolocalizacao = this.location
+    this._anuncioService.save(anuncio);
     const alert = await this._alert.create({
       header: 'Cadastro realizado',
       message: 'Anúncio cadastrado',
@@ -47,15 +53,15 @@ export class CadastroAnuncioPage implements OnInit {
     });
     await alert.present();
     await alert.onDidDismiss();
-    this._router.navigate(['/home']);
+    this._router.navigate(['/home'])
   }
 
   cancelar() {
-    this._router.navigate(['/home']);
+    this._router.navigate(['/home'])
   }
   
-  geolocation() {
-    this._router.navigate(['/cad-anuncio/maps']);
+  voltar() {
+    this._router.navigate(['/maps'])
   }
-
+  
 }

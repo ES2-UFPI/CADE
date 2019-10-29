@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import {
   GoogleMaps,
   GoogleMap,
@@ -10,9 +10,9 @@ import {
   LocationService,
   MyLocation
 } from '@ionic-native/google-maps/ngx';
-import { Platform } from '@ionic/angular';
+import { Platform, ModalController } from '@ionic/angular';
 import { GeolocationService } from 'src/app/geolocation.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-maps',
@@ -21,12 +21,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MapsPage implements OnInit {
   map: GoogleMap;
-  groundOverlay: GroundOverlay;
-  marker1: Marker;
-  marker2: Marker;
-  location
+  @Input() location: ILatLng;
   
-  constructor(private platform: Platform, private _geo: GeolocationService, private _route: ActivatedRoute) { }
+  constructor(
+    private platform: Platform,
+    private _route: ActivatedRoute,
+    private _router: Router,
+    ) { }
   
   async ngOnInit() {
     // Since ngOnInit() is executed before `deviceready` event,
@@ -34,15 +35,15 @@ export class MapsPage implements OnInit {
     const data:MyLocation = this._route.snapshot.data.location
     this.location = data.latLng
     // this.location = {lat: data.coords.latitude, lng: data.coords.longitude}
-    await this.platform.ready();
+    await this.platform.ready()
     console.log('ready')
-    await this.loadMap();
+    await this.loadMap()
   }
 
   loadMap() {
     let bounds: ILatLng[] = [
       this.location,
-    ];
+    ]
 
     const options: GoogleMapOptions = {
       controls: {
@@ -74,45 +75,24 @@ export class MapsPage implements OnInit {
         },
         building: false
       }
-    };
+    }
     
     console.log('aki')
-    this.map = GoogleMaps.create('map_canvas', options);
-
-    // const marker1 = this.map.addMarkerSync({
-    //   'position': this.map.getCameraPosition().target,
-    //   'draggable': true
-    // });
-
-    // marker1.
-
-    // this.marker2 = this.map.addMarkerSync({
-    //   'position': bounds[1],
-    //   'draggable': true
-    // });
-    // this.marker1.on('position_changed').subscribe(this.redrawGroundOverlay.bind(this));
-    // this.marker2.on('position_changed').subscribe(this.redrawGroundOverlay.bind(this));
-    // this.marker1.trigger(GoogleMapsEvent.MARKER_CLICK);
-
-    // this.groundOverlay = this.map.addGroundOverlaySync({
-    //   'url': 'assets/imgs/newark_nj_1922.jpg',
-    //   'bounds': bounds,
-    //   'opacity': 0.5,
-    //   'clickable': true  // default = false
-    // });
-
-    // // Catch the GROUND_OVERLAY_CLICK event
-    // this.groundOverlay.on(GoogleMapsEvent.GROUND_OVERLAY_CLICK).subscribe(() => {
-    //   this.groundOverlay.setImage('assets/imgs/newark_nj_1922_2.jpg');
-    // });
-
+    this.map = GoogleMaps.create('map_canvas', options)
   }
 
-  redrawGroundOverlay() {
-    this.groundOverlay.setBounds([
-      this.marker1.getPosition(),
-      this.marker2.getPosition()
-    ]);
+  choosePlace(){
+    let navigationExtras: NavigationExtras = {
+      state: {
+        location: this.map.getCameraPosition().target
+      }
+    };
+    this._router.navigate(['/cad-anuncio'],navigationExtras);
+    // this._modal.dismiss(this.map.getCameraPosition().target)
+  }
+
+  voltar() {
+    this._router.navigate(['/home'])
   }
 
 }

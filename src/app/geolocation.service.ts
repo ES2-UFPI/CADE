@@ -8,7 +8,7 @@ import { LocationService } from '@ionic-native/google-maps/ngx';
 })
 export class GeolocationService implements Resolve<any> {
   
-  constructor(private _geo: Geolocation) { }
+  constructor() { }
   
   resolve(route: import("@angular/router").ActivatedRouteSnapshot, state: import("@angular/router").RouterStateSnapshot) {
     return this.getPos()

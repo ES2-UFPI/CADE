@@ -6,9 +6,9 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   // tslint:disable-next-line: max-line-length
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
-  { path: 'cad-anuncio', loadChildren: './cadastro-anuncio/cadastro-anuncio.module#CadastroAnuncioPageModule' },
+  { path: 'cad-anuncio', loadChildren: './cadastro-anuncio/cadastro-anuncio.module#CadastroAnuncioPageModule'},
   { path: 'cad-perfil', loadChildren: './cadastro-perfil/cadastro-perfil.module#CadastroPerfilPageModule' },
-  { path: 'cad-anuncio/maps', loadChildren: './cadastro-anuncio/maps/maps.module#MapsPageModule', resolve: {location: GeolocationService}  },
+  { path: 'maps', loadChildren: './cadastro-anuncio/maps/maps.module#MapsPageModule', resolve: {location: GeolocationService}},
 
 
 ];
