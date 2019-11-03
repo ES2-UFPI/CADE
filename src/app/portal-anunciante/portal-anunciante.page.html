@@ -25,7 +25,7 @@
               {{an.descricao}}
               <ion-toolbar>
                 <ion-buttons slot="start">
-                  <ion-button href="/cad-anuncio/">
+                  <ion-button (click)="editar(an)">
                     <ion-icon slot="icon-only" name="create"></ion-icon>
                   </ion-button>
                 </ion-buttons>
@@ -37,7 +37,7 @@
       </ion-list>
   </div>
 
-  <ion-button fill="outline" href="/cad-anuncio">Cadastrar Anúncio</ion-button>
+  <ion-button fill="outline" routerLink="/cad-anuncio" routerDirection="forward">Cadastrar Anúncio</ion-button>
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content

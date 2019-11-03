@@ -12,7 +12,11 @@ export class AnuncioService {
   constructor(private _db: AngularFirestore) { }
 
   save(anuncio: Anuncio) {
-    this._db.collection('anuncios').add(anuncio);
+    if(anuncio.id){
+      this._db.collection('anuncios').doc(anuncio.id).set(anuncio);
+    }else{
+      this._db.collection('anuncios').add(anuncio);
+    }
   }
 
   /* USAGE:

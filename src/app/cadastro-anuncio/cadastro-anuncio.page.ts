@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Categories } from '../Categories';
 import { Anuncio } from '../anuncio';
 import { AnuncioService } from '../anuncio.service';
@@ -15,41 +15,56 @@ export class CadastroAnuncioPage implements OnInit {
   myDate: string = new Date().toISOString();
   anuncioForm: FormGroup;
   categorias: string[] = []
+  an:Anuncio
 
   constructor(private _form: FormBuilder,
+              private _route: ActivatedRoute,
               private _router: Router,
               private _anuncioService: AnuncioService,
               private _alert: AlertController,
     ) {
       this.categorias = Object.keys(Categories).map(k => Categories[k as any]);
-      console.log(this.categorias);
-      this.anuncioForm = this._form.group({
-        titulo: ['', Validators.required],
-        descricao: ['', Validators.required],
-        categoria: ['', Validators.required],
-        dataInicial: ['', Validators.required],
-        dataFinal: ['', Validators.required],
-      });
+      
+      if(this._router.getCurrentNavigation().extras.state){
+        this.an = this._router.getCurrentNavigation().extras.state.anuncio;
+        this.anuncioForm = this._form.group({
+          titulo: [this.an.titulo, Validators.required],
+          descricao: [this.an.descricao, Validators.required],
+          categoria: [this.an.categoria, Validators.required],
+          dataInicial: [this.an.dataInicial, Validators.required],
+          dataFinal: [this.an.dataFinal, Validators.required],
+        });
+      }else{
+        this.anuncioForm = this._form.group({
+          titulo: ['', Validators.required],
+          descricao: ['', Validators.required],
+          categoria: ['', Validators.required],
+          dataInicial: ['', Validators.required],
+          dataFinal: ['', Validators.required],
+        });
+      }
   }
 
   ngOnInit() {
   }
 
   async cadAnuncio() {
-    console.log(this.anuncioForm.value);
-    this._anuncioService.save(this.anuncioForm.value as Anuncio);
+    let novoAn = this.anuncioForm.value as Anuncio
+    novoAn.id = this.an.id
+    console.log(novoAn);
+    this._anuncioService.save(novoAn);
     const alert = await this._alert.create({
-      header: 'Cadastro realizado',
-      message: 'Anúncio cadastrado',
+      header: 'Operação realizada',
+      message: 'Anúncio salvo com sucesso',
       buttons: ['OK']
     });
     await alert.present();
     await alert.onDidDismiss();
-    this._router.navigate(['/home']);
+    this._router.navigate(['/portal-anuncio']);
   }
 
   cancelar() {
-    this._router.navigate(['/home']);
+    this._router.navigate(['/portal-anuncio']);
   }
 
 }

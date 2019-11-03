@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Cadastro de Anuncio</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="portal-anunciante"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -42,7 +45,7 @@
              
               <div margin-vertical text-right>
                 <ion-button fill="outline" color="danger" (click)="cancelar()">Cancelar</ion-button>
-                <ion-button type="submit" [disabled]="!anuncioForm.valid">Publicar</ion-button>
+                <ion-button type="submit" [disabled]="!anuncioForm.valid">Salvar</ion-button>
               </div>
             </ion-card-content>
           </ion-card>
