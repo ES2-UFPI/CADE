@@ -5,6 +5,7 @@ import { Categories } from '../Categories';
 import { Anuncio } from '../anuncio';
 import { AnuncioService } from '../anuncio.service';
 import { AlertController } from '@ionic/angular';
+import { ILatLng} from '@ionic-native/google-maps/ngx';
 
 @Component({
   selector: 'app-cadastro-anuncio',
@@ -12,10 +13,11 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./cadastro-anuncio.page.scss'],
 })
 export class CadastroAnuncioPage implements OnInit {
-  myDate: string = new Date().toISOString();
-  anuncioForm: FormGroup;
+  myDate: string = new Date().toISOString()
+  anuncioForm: FormGroup
   categorias: string[] = []
   an:Anuncio
+  location:ILatLng
 
   constructor(private _form: FormBuilder,
               private _route: ActivatedRoute,
@@ -46,12 +48,16 @@ export class CadastroAnuncioPage implements OnInit {
   }
 
   ngOnInit() {
+    const data = this._router.getCurrentNavigation().extras.state.location
+    console.log(data)
+    this.location = data
   }
 
   async cadAnuncio() {
     let novoAn = this.anuncioForm.value as Anuncio
     novoAn.id = this.an.id
     console.log(novoAn);
+    novoAn.geolocalizacao = this.location
     this._anuncioService.save(novoAn);
     const alert = await this._alert.create({
       header: 'Operação realizada',
@@ -66,5 +72,9 @@ export class CadastroAnuncioPage implements OnInit {
   cancelar() {
     this._router.navigate(['/portal-anuncio']);
   }
-
+  
+  voltar() {
+    this._router.navigate(['/maps'])
+  }
+  
 }
