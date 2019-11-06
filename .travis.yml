@@ -1,9 +1,12 @@
 node_js:
-  - 10.9
+  - stable
 
 branches:
   only:
     - master
+
+install:
+ - npm install
 
 before_script:
   - npm install -g ionic cordova
