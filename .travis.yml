@@ -7,10 +7,9 @@ branches:
 
 before_script:
   - npm install -g ionic cordova
-  - ionic cordova build browser
 
 script:
-  - ionic cordova build browser --prod
+  - ionic cordova build browser --confirm --prod
 
 deploy:
   provider: pages
