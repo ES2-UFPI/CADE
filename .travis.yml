@@ -1,5 +1,5 @@
 node_js:
-  - 11.6.0
+  - "8.9.4"
 
 branches:
   only:
@@ -7,7 +7,7 @@ branches:
 
 before_script:
   - npm install -g ionic cordova
-  - npm install @angular/platform-browser
+  - ionic cordova build browser
 
 script:
   - ionic cordova build browser --prod
