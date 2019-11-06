@@ -1,19 +1,19 @@
 language: node_js
 node_js:
-    - "stable"
+  - "stable"
 
 branches:
   only:
     - master
 
 install:
- - npm install
+  - npm install
 
 before_script:
   - npm install -g ionic cordova
 
 script:
-  - ionic cordova build browser --confirm --prod --verbose
+  - ionic cordova build browser --confirm --verbose
 
 deploy:
   provider: pages
