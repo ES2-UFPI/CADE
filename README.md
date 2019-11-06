@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/ES2-UFPI/CADE.svg?branch=master)](https://travis-ci.org/ES2-UFPI/CADE)
 # CADE
 Repositório do aplicativo CADÊ (Promoções e Notícias perto de você)
 
