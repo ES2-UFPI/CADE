@@ -15,7 +15,7 @@ export class AnuncioService {
   saveLocal(an:Anuncio){
     this.anuncioLocal = an
   }
-
+  
   loadLocal():Anuncio{
     return this.anuncioLocal
   }

@@ -29,13 +29,8 @@ export class PortalAnunciantePage implements OnInit {
   }
 
   editar(an:Anuncio) {
-    console.log(an)
-    let navigationExtras: NavigationExtras = {
-      state: {
-        anuncio: an
-      }
-    };
-    this._router.navigate(['cad-anuncio'], navigationExtras);
+    this._anuncioService.saveLocal(an)
+    this._router.navigate(['cad-anuncio']);
   }
 
   doRefresh(event) {

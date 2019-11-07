@@ -1,18 +1,15 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {
   GoogleMaps,
   GoogleMap,
-  GoogleMapsEvent,
   ILatLng,
-  GroundOverlay,
-  Marker,
   GoogleMapOptions,
-  LocationService,
   MyLocation
 } from '@ionic-native/google-maps/ngx';
-import { Platform, ModalController } from '@ionic/angular';
-import { GeolocationService } from 'src/app/geolocation.service';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AnuncioService } from 'src/app/anuncio.service';
+import { Anuncio } from 'src/app/anuncio';
 
 @Component({
   selector: 'app-maps',
@@ -20,21 +17,25 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
   styleUrls: ['./maps.page.scss'],
 })
 export class MapsPage implements OnInit {
-  map: GoogleMap;
-  @Input() location: ILatLng;
+  map: GoogleMap
+  location: ILatLng
+  anuncio: Anuncio
   
   constructor(
     private platform: Platform,
     private _route: ActivatedRoute,
     private _router: Router,
+    private _anuncioService: AnuncioService,
     ) { }
   
   async ngOnInit() {
-    // Since ngOnInit() is executed before `deviceready` event,
-    // you have to wait the event.
-    const data:MyLocation = this._route.snapshot.data.location
-    this.location = data.latLng
-    // this.location = {lat: data.coords.latitude, lng: data.coords.longitude}
+    this.anuncio = this._anuncioService.loadLocal()
+    if(this.anuncio){
+      this.location = this.anuncio.geolocalizacao
+    }else{
+      const data:MyLocation = this._route.snapshot.data.location
+      this.location = data.latLng
+    }
     await this.platform.ready()
     console.log('ready')
     await this.loadMap()
@@ -77,22 +78,12 @@ export class MapsPage implements OnInit {
       }
     }
     
-    console.log('aki')
     this.map = GoogleMaps.create('map_canvas', options)
   }
 
   choosePlace(){
-    let navigationExtras: NavigationExtras = {
-      state: {
-        location: this.map.getCameraPosition().target
-      }
-    };
-    this._router.navigate(['/cad-anuncio'],navigationExtras);
-    // this._modal.dismiss(this.map.getCameraPosition().target)
+    this.anuncio.geolocalizacao = this.map.getCameraPosition().target
+    this._anuncioService.saveLocal(this.anuncio)
+    this._router.navigate(['/cad-anuncio']);
   }
-
-  voltar() {
-    this._router.navigate(['/home'])
-  }
-
 }
