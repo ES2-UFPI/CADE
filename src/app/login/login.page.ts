@@ -4,7 +4,7 @@ import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
 
 import { AlertController } from '@ionic/angular';
-import { Cad-anunPage } from '../cadanunciante/cad-anun.page';
+import { Cad-anunPage } from '../cad-anun/cad-anun.page';
 
 @Component({
   selector: 'app-login',
