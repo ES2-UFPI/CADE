@@ -9,26 +9,26 @@
     <ion-list>
       <ion-item>
         <ion-label position="floating">Nome Completo</ion-label>
-        <ion-input type="text" [(ngModel)]="nome"></ion-input>
+        <ion-input type="text" [(ngModel)]="nome" [ngModelOptions]="{standalone: true}"></ion-input>
       </ion-item>
       <ion-item>
          <ion-label position="floating">Endereço de e-mail</ion-label>
-        <ion-input type="email" [(ngModel)]="email"></ion-input>
+        <ion-input type="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">CPF</ion-label>
-        <ion-input type="text" [(ngModel)]="CPF"></ion-input>
+        <ion-input type="text" [(ngModel)]="CPF" [ngModelOptions]="{standalone: true}"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Senha</ion-label>
-        <ion-input type="password" [(ngModel)]="password"></ion-input>
+        <ion-input type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Confirmar Senha</ion-label>
-        <ion-input type="password" [(ngModel)]="cpassword"></ion-input>
+        <ion-input type="password" [(ngModel)]="cpassword" [ngModelOptions]="{standalone: true}"></ion-input>
       </ion-item>
       <ion-item>
-        <button ion-button full block color="danger" (click)="registrar()">Cadastrar</button>
+        <button ion-button (click)="registrar()">Cadastrar</button>
       </ion-item>
     </ion-list>
   </form>
