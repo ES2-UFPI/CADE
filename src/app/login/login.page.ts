@@ -29,16 +29,16 @@ export class LoginPage implements OnInit {
       } catch (err) {
         this.showAlert("Credenciais invalidas!", "tente novamente");
         console.dir(err);
- 
+
       }
     }
-    
+
     async showAlert(header: string, message: string){
       const alert = await this.alert.create({
         header,
         message,
         buttons: ["Certo!"]
-  
+
       })
       await alert.present();
     }
