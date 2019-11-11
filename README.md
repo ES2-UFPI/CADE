@@ -4,18 +4,19 @@ Repositório do aplicativo CADÊ (Promoções e Notícias perto de você)
 
 # Changelog
 
-## v0.1.0 - 19/10/2019
+## v0.2.0 - 19/10/2019
 
 ### New Features
 
-- Qualquer usuário pode cadastrar Anúncios
-- Home page mostra uma listagem de todos os Anúncios
-- O usuário pode cadastrar um perfil e o que faz com que a Home page mostre apenas anúncios de interesse do perfil cadastrado
+- Agora o usuário pode editar os anúncios já cadastrados
+- Criação da página de cadastro do anunciante
+- Visualização de anúncios cadastrados pelo anunciante
+- Sistema de login e registro
 
 ### Improvements
 
-- 
+- Melhora visual em alguns botões da interface
 
 ### Bug Fixes
 
-- 
+- Corrigido um bug na busca por perfil: na home page, quando atualizamos a lista puxando ela para baixo, o perfil não é levado em consideração
