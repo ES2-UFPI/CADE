@@ -38,7 +38,7 @@ export class CadanunciantePage implements OnInit {
        this.router.navigate(['/home'])
     } catch (error) {
       console.dir(error)
-      this.showAlert("Erro", error.message)
+      this.showAlert("Erro", "")
     }
 
   }
