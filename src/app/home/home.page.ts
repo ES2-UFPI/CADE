@@ -24,11 +24,16 @@ export class HomePage {
   }
   
   ionViewWillEnter(){
+    this.search()
+  }
+  
+  search(){
     if(this.perfil){
       this.findAnunciosByPerfil(this.perfil)
     }else{
       this.findAllAnuncios()
     }
+
   }
   
   findAllAnuncios(){
@@ -49,7 +54,7 @@ export class HomePage {
   }
   
   doRefresh(event) {
-    this.findAllAnuncios()
+    this.search()
 
     setTimeout(() => {
       console.log('Async operation has ended');

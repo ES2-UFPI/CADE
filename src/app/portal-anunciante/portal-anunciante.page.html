@@ -1,18 +1,17 @@
 <ion-header>
   <ion-toolbar>
-    
-    <ion-title>
-      CADÊ - Anúncios
-    </ion-title>
+    <ion-title>Portal do Anunciante</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
-  
 </ion-header>
 
 <ion-content>
   <div class="ion-padding">
     <ion-list>
       <ion-item *ngIf="!anuncios || anuncios.length <= 0">
-          Nenhum anúncio encontrado no momento.
+          Nenhum anúncio cadastrado.
       </ion-item>
         <ion-item *ngFor="let an of anuncios">
           <ion-card>
@@ -24,6 +23,13 @@
           
             <ion-card-content>
               {{an.descricao}}
+              <ion-toolbar>
+                <ion-buttons slot="start">
+                  <ion-button (click)="editar(an)">
+                    <ion-icon slot="icon-only" name="create"></ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </ion-toolbar>
             </ion-card-content>
 
           </ion-card>
@@ -31,8 +37,8 @@
       </ion-list>
   </div>
 
-  <ion-button fill="outline" routerLink="/portal-anunciante">Portal do Anunciante</ion-button>
-  <ion-button fill="outline" routerLink="/cad-perfil">Cadastrar Perfil</ion-button>
+  <!-- <ion-button fill="outline" routerLink="/maps" routerDirection="forward">Cadastrar Anúncio</ion-button> -->
+  <ion-button fill="outline" routerLink="/cad-anuncio" routerDirection="forward">Cadastrar Anúncio</ion-button>
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
@@ -42,6 +48,4 @@
       refreshingText="Refreshing...">
     </ion-refresher-content>
   </ion-refresher>
-  
 </ion-content>
-
