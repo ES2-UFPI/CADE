@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'cad-perfil', loadChildren: './cadastro-perfil/cadastro-perfil.module#CadastroPerfilPageModule' },
   { path: 'portal-anunciante', loadChildren: './portal-anunciante/portal-anunciante.module#PortalAnunciantePageModule' },
   { path: 'maps', loadChildren: './cadastro-anuncio/maps/maps.module#MapsPageModule', resolve: {location: GeolocationService}},
-
+  { path: 'cad-anun', loadChildren: './cad-anun/cad-anun.module#CadAnunPageModule' },
 
 ];
 
