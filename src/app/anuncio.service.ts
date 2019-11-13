@@ -8,11 +8,24 @@ import { Perfil } from './perfil';
   providedIn: 'root'
 })
 export class AnuncioService {
+  anuncioLocal:Anuncio
 
   constructor(private _db: AngularFirestore) { }
 
+  saveLocal(an:Anuncio){
+    this.anuncioLocal = an
+  }
+  
+  loadLocal():Anuncio{
+    return this.anuncioLocal
+  }
+
   save(anuncio: Anuncio) {
-    this._db.collection('anuncios').add(anuncio);
+    if(anuncio.id){
+      this._db.collection('anuncios').doc(anuncio.id).set(anuncio);
+    }else{
+      this._db.collection('anuncios').add(anuncio);
+    }
   }
 
   /* USAGE:
