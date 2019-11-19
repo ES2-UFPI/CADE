@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
 import { Resolve } from '@angular/router';
-import { LocationService } from '@ionic-native/google-maps/ngx';
+import { LocationService, Spherical, ILatLng } from '@ionic-native/google-maps/ngx';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeolocationService implements Resolve<any> {
+  map: Spherical
   
   constructor() { }
   
@@ -17,4 +18,10 @@ export class GeolocationService implements Resolve<any> {
   getPos(){
     return from(LocationService.getMyLocation())
   }
+
+  distance(from:ILatLng, to: ILatLng):Number{
+    const distance = this.map.computeDistanceBetween(from,to)
+    return distance
+  }
+
 }
