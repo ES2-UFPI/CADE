@@ -4,7 +4,7 @@ import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
 
 import { AlertController } from '@ionic/angular';
-import { CadanunciantePage } from '../cadanunciante/cadanunciante.page';
+import { Cad-anunPage } from '../cad-anun/cad-anun.page';
 
 @Component({
   selector: 'app-login',
@@ -44,7 +44,7 @@ export class LoginPage implements OnInit {
     }
 
     irCadastro(){
-      this.router.navigate(['/cadanunciante'])
+      this.router.navigate(['/cad-anun'])
     }
 
 }
