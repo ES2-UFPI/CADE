@@ -8,19 +8,10 @@ const routes: Routes = [
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
   { path: 'cad-anuncio', loadChildren: './cadastro-anuncio/cadastro-anuncio.module#CadastroAnuncioPageModule'},
   { path: 'cad-perfil', loadChildren: './cadastro-perfil/cadastro-perfil.module#CadastroPerfilPageModule' },
-<<<<<<< HEAD
-  { path: 'cadanunciante', loadChildren: './cadanunciante/cadanunciante.module#CadanunciantePageModule' },
-  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
-  { path: 'portal-anunciante', loadChildren: './portal-anunciante/portal-anunciante.module#PortalAnunciantePageModule' },
-  { path: 'maps', loadChildren: './cadastro-anuncio/maps/maps.module#MapsPageModule', resolve: {location: GeolocationService}},
-  { path: 'cad-anun', loadChildren: './cad-anun/cad-anun.module#CadAnunPageModule' },
-=======
-
   { path: 'portal-anunciante', loadChildren: './portal-anunciante/portal-anunciante.module#PortalAnunciantePageModule' },
   { path: 'maps', loadChildren: './cadastro-anuncio/maps/maps.module#MapsPageModule', resolve: {location: GeolocationService}},
   { path: 'cad-anun', loadChildren: './cad-anun/cad-anun.module#CadAnunPageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
->>>>>>> f349dfd6e1930a4f70327a5c913718213984a606
 
 ];
 
