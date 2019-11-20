@@ -5,12 +5,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CadAnunPage } from './cad-anun.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: CadAnunPage
   }
 ];
 
@@ -21,6 +19,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [CadAnunPage]
+  declarations: []
 })
 export class CadAnunPageModule {}
