@@ -53,8 +53,10 @@ export class AnuncioService {
     var observables:Observable<Anuncio[]>[] = []
     perfil.categorias.forEach(cat => {
       observables.push(
-        (this._db.collection('anuncios',ref => ref.where('categoria', '==', cat))
-        .valueChanges({idField:'id'}) as Observable<Anuncio[]>).pipe(
+        (
+          this._db.collection('anuncios',ref => ref.where('categoria', '==', cat))
+          .valueChanges({idField:'id'}) as Observable<Anuncio[]>
+        ).pipe(
           map(array => array.filter(
             anuncio => this._locationService.distance(location,anuncio.geolocalizacao) <= perfil.raio
           ))
