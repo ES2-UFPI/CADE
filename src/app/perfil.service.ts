@@ -7,15 +7,25 @@ import { from } from 'rxjs';
   providedIn: 'root'
 })
 export class PerfilService {
+  perfil:Perfil
 
   constructor(private _storage: Storage) { }
 
-  save(perfil:Perfil){
+  saveStorage(perfil:Perfil){
     this._storage.set('perfil',perfil)
+    this.saveLocal(perfil)
   }
 
-  load(){
+  loadStorage(){
     return from(this._storage.get('perfil'))
+  }
+
+  saveLocal(perfil:Perfil){
+    this.perfil = perfil
+  }
+
+  loadLocal(){
+    return this.perfil
   }
 
 }

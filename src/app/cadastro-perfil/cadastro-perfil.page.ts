@@ -43,7 +43,7 @@ export class CadastroPerfilPage {
       }
     })
     console.log(this.perfil)
-    this._service.save(this.perfil);
+    this._service.saveStorage(this.perfil);
     const alert = await this._alert.create({
       header: 'Cadastro realizado',
       message: 'Perfil cadastrado',

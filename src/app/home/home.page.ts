@@ -17,13 +17,18 @@ export class HomePage {
   constructor(private _anuncioService: AnuncioService, private _perfilService: PerfilService) {}
 
   ngOnInit(){
-    this._perfilService.load()
+    console.log('nginit home page')
+    this._perfilService.loadStorage()
     .subscribe(perfil =>{
       this.perfil = perfil
     })
   }
   
   ionViewWillEnter(){
+    console.log('ionviewenter home page')
+    this.perfil = this._perfilService.loadLocal()
+    console.log(this.perfil)
+
     this.search()
   }
   
@@ -43,6 +48,7 @@ export class HomePage {
     })
   }
   findAnunciosByPerfil(perfil:Perfil){
+    this.anuncios = []
     this._anuncioService.findByPerfil(perfil)
     .subscribe(anunciosMatrix =>{
       anunciosMatrix.forEach(anuncios=>{
