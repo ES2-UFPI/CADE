@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Anuncio } from './anuncio';
-import { Observable, forkJoin, of, from, combineLatest } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { Perfil } from './perfil';
+import { ILatLng } from '@ionic-native/google-maps/ngx';
+import { map, filter } from 'rxjs/operators';
+import { GeolocationService } from './geolocation.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +13,7 @@ import { Perfil } from './perfil';
 export class AnuncioService {
   anuncioLocal:Anuncio
 
-  constructor(private _db: AngularFirestore) { }
+  constructor(private _db: AngularFirestore, private _locationService:GeolocationService) { }
 
   saveLocal(an:Anuncio){
     this.anuncioLocal = an
@@ -42,6 +45,23 @@ export class AnuncioService {
     perfil.categorias.forEach(cat => {
       observables.push(this._db.collection('anuncios',ref => ref.where('categoria', '==', cat))
       .valueChanges({idField:'id'}) as Observable<Anuncio[]>)
+    });
+    return combineLatest(observables)
+  }
+  
+  findByLocationAndPerfil(perfil:Perfil, location: ILatLng):Observable<Anuncio[][]>{
+    var observables:Observable<Anuncio[]>[] = []
+    perfil.categorias.forEach(cat => {
+      observables.push(
+        (
+          this._db.collection('anuncios',ref => ref.where('categoria', '==', cat))
+          .valueChanges({idField:'id'}) as Observable<Anuncio[]>
+        ).pipe(
+          map(array => array.filter(
+            anuncio => this._locationService.distance(location,anuncio.geolocalizacao) <= perfil.raio
+          ))
+        )
+      )
     });
     return combineLatest(observables)
   }
