@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Categories } from '../Categories';
 import { Anuncio } from '../anuncio';
 import { AnuncioService } from '../anuncio.service';
@@ -18,7 +18,6 @@ export class CadastroAnuncioPage implements OnInit {
   an:Anuncio
 
   constructor(private _form: FormBuilder,
-              private _route: ActivatedRoute,
               private _router: Router,
               private _anuncioService: AnuncioService,
               private _alert: AlertController,
