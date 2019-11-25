@@ -1,3 +1,6 @@
+dist: trusty
+sudo: false
+
 language: node_js
 node_js:
   - "10.16.3"
@@ -7,6 +10,17 @@ branches:
     - master
     - dev
 
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+
+cache:
+  directories:
+    - ./node_modules
+
 install:
   - npm install
 
@@ -14,6 +28,7 @@ before_script:
   - npm install -g ionic cordova
 
 script:
+  - npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
   - ionic cordova build browser --confirm --prod
 
 deploy:
