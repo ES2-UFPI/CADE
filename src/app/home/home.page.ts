@@ -3,6 +3,7 @@ import { AnuncioService } from '../anuncio.service';
 import { Anuncio } from '../anuncio';
 import { Perfil } from '../perfil';
 import { PerfilService } from '../perfil.service';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ export class HomePage {
   anuncios: Anuncio[] = []
   perfil:Perfil
 
-  constructor(private _anuncioService: AnuncioService, private _perfilService: PerfilService) {}
+  constructor(private _anuncioService: AnuncioService, private _perfilService: PerfilService, private socialSharing: SocialSharing) {}
 
   ngOnInit(){
     this._perfilService.load()
@@ -60,6 +61,10 @@ export class HomePage {
       console.log('Async operation has ended');
       event.target.complete();
     }, 2000);
+  }
+
+  compartilharTexto(){
+    this.socialSharing.share('Compartilhando texto exemplo');
   }
 
 }
