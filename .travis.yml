@@ -28,7 +28,7 @@ before_script:
   - npm install -g ionic cordova
 
 script:
-  - npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+  - npm run test -- --no-watch --no-progress
   - ionic cordova build browser --confirm --prod
 
 deploy:
