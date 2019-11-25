@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PerfilService } from '../perfil.service';
 import { AlertController } from '@ionic/angular';
@@ -15,8 +14,7 @@ export class CadastroPerfilPage {
   categoriasToggle:any[] = []
   perfil:Perfil = {raio:2000,categorias:[]}
 
-  constructor(private _form: FormBuilder,
-      private _router: Router,
+  constructor(private _router: Router,
       private _service: PerfilService,
       private _alert: AlertController,
     ){
