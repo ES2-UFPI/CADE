@@ -4,10 +4,7 @@ node_js:
 
 branches:
   only:
-<<<<<<< HEAD
     - master
-=======
->>>>>>> f349dfd6e1930a4f70327a5c913718213984a606
     - dev
 
 install:
