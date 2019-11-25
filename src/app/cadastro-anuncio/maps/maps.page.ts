@@ -29,15 +29,21 @@ export class MapsPage implements OnInit {
     ) { }
   
   async ngOnInit() {
+    console.log('INIT')
     this.anuncio = this._anuncioService.loadLocal()
     if(this.anuncio){
       this.location = this.anuncio.geolocalizacao
+      if(!this.location){
+        const data:MyLocation = this._route.snapshot.data.location
+        this.location = data.latLng
+      }
     }else{
       const data:MyLocation = this._route.snapshot.data.location
       this.location = data.latLng
     }
     await this.platform.ready()
     console.log('ready')
+    console.log(this.location)
     await this.loadMap()
   }
 
