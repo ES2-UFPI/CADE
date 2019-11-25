@@ -11,11 +11,7 @@ branches:
     - dev
 
 addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
+  chrome: stable
 
 cache:
   directories:
@@ -28,7 +24,7 @@ before_script:
   - npm install -g ionic cordova
 
 script:
-  - npm run test -- --no-watch --no-progress
+  - ng test -watch false -browsers ChromeHeadless
   - ionic cordova build browser --confirm --prod
 
 deploy:
