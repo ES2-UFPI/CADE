@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
     <ion-title>cadastro-perfil</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -17,12 +20,12 @@
 
               <ion-item>
                 <ion-label>Raio de Busca</ion-label>
-                <ion-select interface="popover" [(ngModel)]="perfil.raio" name="raio">
-                  <ion-select-option value="0.5">0.5 km (Perto de voçê)</ion-select-option>
-                  <ion-select-option value="2">2 km (Redondezas)</ion-select-option>
-                  <ion-select-option value="10">10 km (Zona)</ion-select-option>
-                  <ion-select-option value="50">50 km (Cidade)</ion-select-option>
-                  <ion-select-option value="-1">Sem raio</ion-select-option>
+                <ion-select interface="popover" [selectedText]="raioText()" [(ngModel)]="perfil.raio" name="raio">
+                  <ion-select-option value="500">0.5 km (Perto de voçê)</ion-select-option>
+                  <ion-select-option value="2000">2 km (Redondezas)</ion-select-option>
+                  <ion-select-option value="10000">10 km (Zona)</ion-select-option>
+                  <ion-select-option value="50000">50 km (Cidade)</ion-select-option>
+                  <ion-select-option value="999999">Sem raio</ion-select-option>
                 </ion-select>
               </ion-item>
               
@@ -34,8 +37,7 @@
                 </ion-item>
               </ion-list>
 
-              <div margin-vertical text-right>
-                <ion-button fill="outline" color="danger" (click)="cancelar()">Cancelar</ion-button>
+              <div ion-margin-vertical ion-text-right>
                 <ion-button type="submit">Publicar</ion-button>
 <<<<<<< HEAD
                 <ion-button fill="outline" href="/cadanunciante">Anunciante? Cadastre-se!</ion-button>
