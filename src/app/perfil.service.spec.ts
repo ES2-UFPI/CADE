@@ -12,8 +12,7 @@ describe('PerfilService', () => {
         {provide: Storage, useValue: spy},
       ],
     })
-  }
-)
+  })
 
   it('should be created', () => {
     const service: PerfilService = TestBed.get(PerfilService);
