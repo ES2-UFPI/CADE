@@ -5,7 +5,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { GeolocationService } from './geolocation.service';
 import { Perfil } from './perfil';
 import { Anuncio } from './anuncio';
-import { from, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ILatLng } from '@ionic-native/google-maps/ngx';
 
 describe('AnuncioService Default', () => {
@@ -19,7 +19,6 @@ describe('AnuncioService Default', () => {
     return angularFirestoreSpy
   }
   angularFirestoreSpy.valueChanges = ()=>{
-    console.log('===============================================')
     return of(anuncios) as Observable<Anuncio[]>
   }
   geolocationServiceSpy.distance = (from:ILatLng, to:ILatLng)=>{
