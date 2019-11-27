@@ -27,8 +27,29 @@
             </ion-card-content>
 
           </ion-card>
+
+            <ion-card *ngFor="let message of messages">
+            <ion-card-header>
+              {{message.id}}
+            </ion-card-header>
+            <ion-card-content>
+              {{message.comentario}}
+            </ion-card-content>
+            </ion-card>
+
+            <ion-toolbar>
+              <ion-input placeholder="Comente algo..." [(ngModel)]="message"></ion-input>
+              <ion-buttons end>
+                <button ion-button icon-right (click)="sendMessage()">
+                    Enviar
+                  <ion-icon name="send"></ion-icon>
+                </button>
+              </ion-buttons>
+              </ion-toolbar>
+
         </ion-item>
       </ion-list>
+      
   </div>
 
   <ion-button fill="outline" routerLink="/portal-anunciante">Portal do Anunciante</ion-button>
