@@ -59,9 +59,9 @@ export class AnuncioService {
         ).pipe(
           map(array => array.filter(
             anuncio => {
-              console.log('LoCATION '+location.lat)
-              console.log('ANUNCIO LOCATION '+anuncio.geolocalizacao.lat)
-              console.log('RESULTADO '+(this._locationService.distance(location,anuncio.geolocalizacao) <= perfil.raio))
+              // console.log('LoCATION '+location.lat)
+              // console.log('ANUNCIO LOCATION '+anuncio.geolocalizacao.lat)
+              // console.log('RESULTADO '+(this._locationService.distance(location,anuncio.geolocalizacao) <= perfil.raio))
               return (this._locationService.distance(location,anuncio.geolocalizacao) <= perfil.raio)
             }))
         )
