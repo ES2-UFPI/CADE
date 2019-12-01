@@ -6,6 +6,7 @@ import { PerfilService } from '../perfil.service';
 import { ILatLng, MyLocation } from '@ionic-native/google-maps/ngx';
 import { ActivatedRoute } from '@angular/router';
 import { GeolocationService } from '../geolocation.service';
+import { HomeService } from './home.service';
 
 @Component({
   selector: 'app-home',
@@ -19,43 +20,32 @@ export class HomePage {
   location:ILatLng
 
   constructor(
+    // private _homeService: HomeService,
     private _anuncioService: AnuncioService,
     private _perfilService: PerfilService,
     private _locationService: GeolocationService,
     private _route: ActivatedRoute,
-  ) {}
+  ) {  }
 
   ngOnInit(){
-    this._perfilService.loadStorage()
-    .subscribe(perfil =>{
-      this.perfil = perfil
-    })
   }
   
   ionViewWillEnter(){
     this.perfil = this._perfilService.loadLocal()
+    // this.anuncios = this._homeService.load()
     const data:MyLocation = this._route.snapshot.data.location
     this.location = data.latLng
     this.search()
   }
   
   search(){
-    if(this.perfil && this.location){
-      this.findAnunciosByPerfil()
-    }else{
-      this.findAllAnuncios()
+    if(!this.perfil || !this.location){
+      this.perfil = {raio:500, categorias:[]}
+      this.location = {lat:-5.115061, lng:-42.811459}
     }
-
+    this.findAnunciosByPerfil()
   }
   
-  findAllAnuncios(){
-    console.log('findall')
-    this.anuncios = []
-    this._anuncioService.findAll()
-    .subscribe(anuncios =>{
-      this.anuncios = anuncios
-    })
-  }
   findAnunciosByPerfil(){
     this.anuncios = []
     this._anuncioService.findByLocationAndPerfil(this.perfil, this.location)
@@ -63,21 +53,14 @@ export class HomePage {
       anunciosMatrix.forEach(anuncios=>{
         anuncios.forEach(anuncio=>{
           this.anuncios.push(anuncio)
+          if(!this._anuncioService.checkViewed(anuncio)){
+            
+            // this._homeService.save(this.anuncios)
+          }
         })
       })
     })
   }
-  // findAnunciosByPerfil(perfil:Perfil){
-  //   this.anuncios = []
-  //   this._anuncioService.findByPerfil(perfil)
-  //   .subscribe(anunciosMatrix =>{
-  //     anunciosMatrix.forEach(anuncios=>{
-  //       anuncios.forEach(anuncio=>{
-  //         this.anuncios.push(anuncio)
-  //       })
-  //     })
-  //   })
-  // }
   
   distance(an:Anuncio){
     const distance = this._locationService.distance(this.location, an.geolocalizacao)
