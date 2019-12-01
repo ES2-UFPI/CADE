@@ -1,19 +1,27 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Anuncio } from './anuncio';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, from } from 'rxjs';
 import { Perfil } from './perfil';
 import { ILatLng } from '@ionic-native/google-maps/ngx';
 import { map, filter } from 'rxjs/operators';
 import { GeolocationService } from './geolocation.service';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnuncioService {
   anuncioLocal:Anuncio
+  anunciosVistosIds:string[] = []
 
-  constructor(private _db: AngularFirestore, private _locationService:GeolocationService) { }
+  constructor(
+    private _db: AngularFirestore,
+    private _locationService:GeolocationService,
+    private _storage:Storage,
+  ) {
+    this.loadViewedStorage()
+  }
 
   saveLocal(an:Anuncio){
     this.anuncioLocal = an
@@ -23,12 +31,40 @@ export class AnuncioService {
     return this.anuncioLocal
   }
 
+  async saveViewedStorage(){
+    this._storage.set('viewed',this.anunciosVistosIds)
+  }
+  
+  loadViewedStorage(){
+    return from(this._storage.get('viewed')).subscribe(obj =>{
+      this.anunciosVistosIds = obj ? obj : []
+    })
+  }
+
+  checkViewed(anuncio:Anuncio):boolean{
+    const filtered = this.anunciosVistosIds.filter(an => an == anuncio.id)
+    // return filtered.length >= 1 ? true : false
+    if(this.anunciosVistosIds.includes(anuncio.id)){
+      return true
+    }else{
+      this.anunciosVistosIds.push(anuncio.id)
+      this.saveViewedStorage()
+      return false
+    }
+  }
+
   save(anuncio: Anuncio) {
     if(anuncio.id){
-      this._db.collection('anuncios').doc(anuncio.id).set(anuncio);
+      this._db.collection('anuncios').doc(anuncio.id).set(anuncio)
     }else{
-      this._db.collection('anuncios').add(anuncio);
+      anuncio.views = 0
+      this._db.collection('anuncios').add(anuncio)
     }
+  }
+  
+  view(anuncio:Anuncio){
+    anuncio.views++
+    this._db.collection('anuncios').doc(anuncio.id).set(anuncio)
   }
 
   /* USAGE:

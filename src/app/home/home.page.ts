@@ -6,6 +6,7 @@ import { PerfilService } from '../perfil.service';
 import { ILatLng, MyLocation } from '@ionic-native/google-maps/ngx';
 import { ActivatedRoute } from '@angular/router';
 import { GeolocationService } from '../geolocation.service';
+import { HomeService } from './home.service';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +20,7 @@ export class HomePage {
   location:ILatLng
 
   constructor(
+    private _homeService: HomeService,
     private _anuncioService: AnuncioService,
     private _perfilService: PerfilService,
     private _locationService: GeolocationService,
@@ -26,14 +28,14 @@ export class HomePage {
   ) {}
 
   ngOnInit(){
-    this._perfilService.loadStorage()
-    .subscribe(perfil =>{
+    this._perfilService.loadStorage().subscribe(perfil =>{
       this.perfil = perfil
     })
   }
   
   ionViewWillEnter(){
     this.perfil = this._perfilService.loadLocal()
+    this.anuncios = this._homeService.load()
     const data:MyLocation = this._route.snapshot.data.location
     this.location = data.latLng
     this.search()
@@ -54,15 +56,22 @@ export class HomePage {
     this._anuncioService.findAll()
     .subscribe(anuncios =>{
       this.anuncios = anuncios
+      this._homeService.save(this.anuncios)
     })
   }
   findAnunciosByPerfil(){
-    this.anuncios = []
     this._anuncioService.findByLocationAndPerfil(this.perfil, this.location)
     .subscribe(anunciosMatrix =>{
       anunciosMatrix.forEach(anuncios=>{
         anuncios.forEach(anuncio=>{
-          this.anuncios.push(anuncio)
+          console.log(anuncio)
+          console.log(this.anuncios.includes(anuncio))
+          if(!this._anuncioService.checkViewed(anuncio)){
+            if(!this.anuncios.includes(anuncio)){
+              this.anuncios.push(anuncio)
+              this._homeService.save(this.anuncios)
+            }
+          }
         })
       })
     })
