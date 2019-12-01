@@ -36,7 +36,7 @@ export class AnuncioService {
   }
   
   loadViewedStorage(){
-    return from(this._storage.get('viewed')).subscribe(obj =>{
+    from(this._storage.get('viewed')).subscribe(obj =>{
       this.anunciosVistosIds = obj ? obj : []
     })
   }
@@ -44,11 +44,12 @@ export class AnuncioService {
   checkViewed(anuncio:Anuncio):boolean{
     const filtered = this.anunciosVistosIds.filter(an => an == anuncio.id)
     // return filtered.length >= 1 ? true : false
-    if(this.anunciosVistosIds.includes(anuncio.id)){
+    if(filtered.length >= 1){
       return true
     }else{
       this.anunciosVistosIds.push(anuncio.id)
       this.saveViewedStorage()
+      this.view(anuncio)
       return false
     }
   }
@@ -63,6 +64,7 @@ export class AnuncioService {
   }
   
   view(anuncio:Anuncio){
+    console.log('view')
     anuncio.views++
     this._db.collection('anuncios').doc(anuncio.id).set(anuncio)
   }

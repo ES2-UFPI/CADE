@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Perfil } from './perfil';
-import { from } from 'rxjs';
+import { from, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,9 @@ import { from } from 'rxjs';
 export class PerfilService {
   perfil:Perfil
 
-  constructor(private _storage: Storage) { }
+  constructor(private _storage: Storage) { 
+    this.loadStorage()
+  }
 
   saveStorage(perfil:Perfil){
     this._storage.set('perfil',perfil)
@@ -17,7 +19,9 @@ export class PerfilService {
   }
 
   loadStorage(){
-    return from(this._storage.get('perfil'))
+    from(this._storage.get('perfil')).subscribe(perfil =>{
+      this.perfil = perfil
+    })
   }
 
   saveLocal(perfil:Perfil){

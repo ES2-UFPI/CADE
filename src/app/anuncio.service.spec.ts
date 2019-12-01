@@ -7,11 +7,13 @@ import { Perfil } from './perfil';
 import { Anuncio } from './anuncio';
 import { Observable, of } from 'rxjs';
 import { ILatLng } from '@ionic-native/google-maps/ngx';
+import { Storage } from '@ionic/storage';
 
 describe('AnuncioService Default', () => {
   let service:AnuncioService
   const angularFirestoreSpy = jasmine.createSpyObj('AngularFirestore', ['collection','valueChanges'])
   let geolocationServiceSpy = jasmine.createSpyObj('GeolocationService', ['distance'])
+  const storageSpy = jasmine.createSpyObj('Storage', ['get','set'])
   
   let anuncios:Anuncio[] = []
   
@@ -24,12 +26,16 @@ describe('AnuncioService Default', () => {
   geolocationServiceSpy.distance = (from:ILatLng, to:ILatLng)=>{
     return 0.0
   }
+  storageSpy.get = () =>{
+    return of([])
+  }
   
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers:[
         {provide: AngularFirestore, useValue: angularFirestoreSpy},
         {provide: GeolocationService, useValue: geolocationServiceSpy},
+        {provide: Storage, useValue: storageSpy},
       ],
     })
     service = TestBed.get(AnuncioService);
@@ -59,6 +65,7 @@ describe('AnuncioService Default', () => {
           categoria: 'Noticia',
           dataInicial: null,
           dataFinal: null,
+          views: 0,
         },
         {
           id: '2',
@@ -68,9 +75,10 @@ describe('AnuncioService Default', () => {
           categoria: 'Noticia',
           dataInicial: null,
           dataFinal: null,
+          views: 0,
         },
       ]
-  
+      
       const from = {lat:-5.115062, lng:-42.811459}
       const perfil:Perfil  = {raio:500, categorias:['Noticias']}
       let result:Anuncio[] = []
@@ -94,11 +102,11 @@ describe('AnuncioService Default', () => {
         })
       })
       expect(anuncios.length).toEqual(2);
-  
+      
     });
   })
-
-
+  
+  
   describe('with custom Firestore.collection', () => {
     angularFirestoreSpy.valueChanges = ()=>{
       return of([anuncios[0]]) as Observable<Anuncio[]>
@@ -112,6 +120,7 @@ describe('AnuncioService Default', () => {
         categoria: 'Noticia',
         dataInicial: null,
         dataFinal: null,
+        views: 0,
       },
       {
         id: '2',
@@ -121,12 +130,13 @@ describe('AnuncioService Default', () => {
         categoria: 'Livros',
         dataInicial: null,
         dataFinal: null,
+        views: 0,
       },
     ]
     const from = {lat:-5.115061, lng:-42.811459}
     const perfil:Perfil  = {raio:501, categorias:['Noticias']}
     let result:Anuncio[] = []
-
+    
     it('should retrieve anuncios by certain category', () => {
       let lista:Observable<Anuncio[][]> = service.findByLocationAndPerfil(perfil,from)
       lista.subscribe(anunciosMatrix =>{
