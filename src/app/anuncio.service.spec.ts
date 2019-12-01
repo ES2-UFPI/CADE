@@ -39,12 +39,54 @@ describe('AnuncioService Default', () => {
       ],
     })
     service = TestBed.get(AnuncioService);
-  }
-)
+  })
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  describe('with custom Storage', () => {
+    angularFirestoreSpy.doc = ()=>{
+      return angularFirestoreSpy
+    }
+    angularFirestoreSpy.set = ()=>{
+      return angularFirestoreSpy
+    }
+    storageSpy.get = () =>{
+      let aux = [].concat(anuncios)
+      aux.pop()
+      return of(aux.map(an => an.id))
+    }
+    anuncios = [
+      {
+        id: '1',
+        titulo: '',
+        geolocalizacao: {lat:-5.115061, lng:-42.811459},
+        descricao: '',
+        categoria: 'Noticia',
+        dataInicial: null,
+        dataFinal: null,
+        views: 0,
+      },
+      {
+        id: '2',
+        titulo: '',
+        geolocalizacao: {lat:-6.115061, lng:-48.811459},
+        descricao: '',
+        categoria: 'Noticia',
+        dataInicial: null,
+        dataFinal: null,
+        views: 0,
+      },
+    ]
+    it('should return true on checkViewed', () => {
+      expect(service.checkViewed(anuncios[0])).toBeTruthy()
+    });
+    it('should return false on checkViewed and increment view on anuncio', () => {
+      expect(service.checkViewed(anuncios[1])).toBeFalsy()
+      expect(anuncios[1].views).toEqual(1)
+    });
+  })
   
   describe('with custom GeolocationService', () => {
     geolocationServiceSpy.distance = (from:ILatLng, to:ILatLng)=>{

@@ -4,7 +4,7 @@ import { Anuncio } from './anuncio';
 import { Observable, combineLatest, from } from 'rxjs';
 import { Perfil } from './perfil';
 import { ILatLng } from '@ionic-native/google-maps/ngx';
-import { map, filter } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { GeolocationService } from './geolocation.service';
 import { Storage } from '@ionic/storage';
 
