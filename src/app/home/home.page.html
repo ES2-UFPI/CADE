@@ -27,13 +27,16 @@
             </ion-card-content>
 
           </ion-card>
+          <ion-item *ngIf="!comentarios || comentarios.length <= 0">
+            Nenhum comentário. Seja o primeiro a comentar!
+          </ion-item>
 
-            <ion-card *ngFor="let message of messages">
+            <ion-card *ngFor="let co of comentarios">
             <ion-card-header>
-              {{message.id}}
+              {{co.id}}
             </ion-card-header>
             <ion-card-content>
-              {{message.comentario}}
+              {{co.comentario}}
             </ion-card-content>
             </ion-card>
 

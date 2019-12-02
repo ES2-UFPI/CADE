@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AnuncioService } from '../anuncio.service';
 import { Anuncio } from '../anuncio';
+import { ComentarioService } from '../comentario.service';
+import { Comentario } from '../comentario';
 import { Perfil } from '../perfil';
 import { PerfilService } from '../perfil.service';
 
@@ -12,9 +14,10 @@ import { PerfilService } from '../perfil.service';
 export class HomePage {
 
   anuncios: Anuncio[] = []
+  comentarios: Comentario[] = []
   perfil:Perfil
 
-  constructor(private _anuncioService: AnuncioService, private _perfilService: PerfilService) {}
+  constructor(private _anuncioService: AnuncioService, private _perfilService: PerfilService, private _comentarioService: ComentarioService) {}
 
   ngOnInit(){
     this._perfilService.load()
@@ -30,6 +33,7 @@ export class HomePage {
   search(){
     if(this.perfil){
       this.findAnunciosByPerfil(this.perfil)
+      this.findComentariosByAnuncioID(this.anuncios, this.comentarios);
     }else{
       this.findAllAnuncios()
     }
@@ -48,6 +52,17 @@ export class HomePage {
       anunciosMatrix.forEach(anuncios=>{
         anuncios.forEach(anuncio=>{
           this.anuncios.push(anuncio)
+        })
+      })
+    })
+  }
+
+  findComentariosByAnuncioID(anuncio:Anuncio, comentario:Comentario){
+    this._comentarioService.findByAnuncioID(anuncio, comentario)
+    .subscribe(comentariosMatrix =>{
+      comentariosMatrix.forEach(comentarios=>{
+        comentarios.forEach(_comentario=>{
+          this.comentarios.push(anuncio)
         })
       })
     })
