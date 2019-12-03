@@ -33,7 +33,6 @@ export class HomePage {
   search(){
     if(this.perfil){
       this.findAnunciosByPerfil(this.perfil)
-      this.findComentariosByAnuncioID(this.anuncios, this.comentarios);
     }else{
       this.findAllAnuncios()
     }
@@ -57,15 +56,8 @@ export class HomePage {
     })
   }
 
-  findComentariosByAnuncioID(anuncio:Anuncio, comentario:Comentario){
-    this._comentarioService.findByAnuncioID(anuncio, comentario)
-    .subscribe(comentariosMatrix =>{
-      comentariosMatrix.forEach(comentarios=>{
-        comentarios.forEach(_comentario=>{
-          this.comentarios.push(anuncio)
-        })
-      })
-    })
+  findComentariosByAnuncioID(anuncio:Anuncio){
+    this._comentarioService.findByAnuncioID(anuncio).subscribe(lista => {this.comentarios = lista})
   }
   
   doRefresh(event) {

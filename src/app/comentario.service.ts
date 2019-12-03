@@ -28,15 +28,15 @@ export class ComentarioService {
     }
   }
 
-  findByAnuncioID(anuncio: Anuncio, comentario: Comentario):Observable<Comentario[][]>{
-    var observables:Observable<Comentario[]>[] = []
+  findByAnuncioID(anuncio: Anuncio):Observable<Comentario[]>{
+    //var observables:Observable<Comentario[]>[] = []
 
       /* observables.push(this._db.collection('comentarios',ref => ref.where(comentario.id_do_anuncio, '==', anuncio.id))
       .valueChanges({idField:'id'}) as Observable<Comentario[]>) */
 
-      observables.push(this._db.collection('comentarios',ref => ref.where(comentario.id_do_anuncio, '==', anuncio.id))
-      .valueChanges() as Observable<Comentario[]>)
+      return this._db.collection('comentarios',ref => ref.where('id_do_anuncio', '==', anuncio.id))
+      .valueChanges({idField:'id'}) as Observable<Comentario[]>
 
-    return combineLatest(observables)
+    //return combineLatest(observables)
   }
 }
