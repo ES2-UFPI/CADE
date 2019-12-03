@@ -31,7 +31,7 @@
           </ion-card>
           <ion-item *ngIf="!comentarios || comentarios.length <= 0">
             Nenhum comentário. Seja o primeiro a comentar!
-          </ion-item>
+          
 
             <ion-card *ngFor="let co of comentarios">
             <ion-card-header>
@@ -45,7 +45,7 @@
             <ion-toolbar>
               <ion-input placeholder="Comente algo..." [(ngModel)]="message"></ion-input>
               <ion-buttons end>
-                <button ion-button icon-right (click)="sendMessage()">
+                <button ion-button icon-right (click)="sendMessage(message)">
                     Enviar
                   <ion-icon name="send"></ion-icon>
                 </button>
@@ -53,6 +53,7 @@
               </ion-toolbar>
 
         </ion-item>
+      </ion-item>
       </ion-list>
       
   </div>
