@@ -32,7 +32,6 @@ export class HomePage {
     private _comentarioService: ComentarioService
   ) {  }
 
-
   ngOnInit(){
   }
   
