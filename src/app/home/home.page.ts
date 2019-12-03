@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { AnuncioService } from '../anuncio.service';
 import { Anuncio } from '../anuncio';
 import { Perfil } from '../perfil';
@@ -7,6 +7,7 @@ import { ILatLng, MyLocation } from '@ionic-native/google-maps/ngx';
 import { ActivatedRoute } from '@angular/router';
 import { GeolocationService } from '../geolocation.service';
 import { HomeService } from './home.service';
+import { StorageInterface } from '../storageInterface';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,7 @@ export class HomePage {
   constructor(
     // private _homeService: HomeService,
     private _anuncioService: AnuncioService,
-    private _perfilService: PerfilService,
+    @Inject('storageInterface')private _perfilService: StorageInterface,
     private _locationService: GeolocationService,
     private _route: ActivatedRoute,
   ) {  }
@@ -31,7 +32,7 @@ export class HomePage {
   }
   
   ionViewWillEnter(){
-    this.perfil = this._perfilService.loadLocal()
+    this.perfil = this._perfilService.load('perfil')
     // this.anuncios = this._homeService.load()
     const data:MyLocation = this._route.snapshot.data.location
     this.location = data.latLng

@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { PerfilService } from '../perfil.service';
 import { AlertController } from '@ionic/angular';
 import { Categories } from '../Categories';
 import { Perfil } from '../perfil';
+import { StorageInterface } from '../storageInterface';
 
 @Component({
   selector: 'app-cadastro-perfil',
@@ -15,7 +16,7 @@ export class CadastroPerfilPage {
   perfil:Perfil = {raio:2000,categorias:[]}
 
   constructor(private _router: Router,
-      private _service: PerfilService,
+    @Inject('storageInterface')private _service: StorageInterface,
       private _alert: AlertController,
     ){
       var categorias = Object.keys(Categories).map(k => Categories[k as any]);
@@ -32,7 +33,7 @@ export class CadastroPerfilPage {
       }
     })
     console.log(this.perfil)
-    this._service.saveStorage(this.perfil);
+    this._service.save('perfil',this.perfil);
     const alert = await this._alert.create({
       header: 'Cadastro realizado',
       message: 'Perfil cadastrado',
