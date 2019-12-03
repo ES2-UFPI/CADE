@@ -9,7 +9,6 @@ import { ILatLng, MyLocation } from '@ionic-native/google-maps/ngx';
 import { ActivatedRoute } from '@angular/router';
 import { GeolocationService } from '../geolocation.service';
 import { HomeService } from './home.service';
-import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-home',
@@ -69,14 +68,6 @@ export class HomePage {
 
   findComentariosByAnuncioID(anuncio:Anuncio){
     this._comentarioService.findByAnuncioID(anuncio).subscribe(lista => {this.comentarios = lista})
-  }
-
-  sendMessage(id_do_anuncio, message, id){
-    firebase.database().ref('comentarios/' + id_do_anuncio).set({
-      comentario: message,
-      id_do_anuncio: id_do_anuncio,
-      id: id
-    });
   }
   
   distance(an:Anuncio){
