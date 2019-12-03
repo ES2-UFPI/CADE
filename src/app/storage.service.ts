@@ -10,8 +10,8 @@ export class StorageService implements StorageInterface{
 
   constructor(private _storage: Storage) { }
 
-  save(chave: string, obj: any): void {
-    this._storage.set(chave,obj)
+  async save(chave: string, obj: any) {
+    await this._storage.set(chave,obj)
   }
 
   load(chave: string): Observable<any> {

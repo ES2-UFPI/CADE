@@ -15,22 +15,13 @@ export class PerfilService implements StorageInterface{
     })
   }
   
-  save(chave: string, obj: Perfil): void {
+  async save(chave: string, obj: Perfil){
     this.perfil = obj
-    this._storage.save('perfil',obj)
+    await this._storage.save('perfil',obj)
   }
 
   load(chave: string): Perfil{
-    console.log(this.perfil)
     return this.perfil
   }
-
-  // saveLocal(perfil: Perfil){
-  //   this.save('perfil',perfil)
-  // }
-
-  // loadLocal(perfil: Perfil){
-  //   this.load('perfil',perfil)
-  // }
 
 }

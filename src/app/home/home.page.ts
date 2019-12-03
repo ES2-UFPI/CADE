@@ -36,6 +36,7 @@ export class HomePage {
     // this.anuncios = this._homeService.load()
     const data:MyLocation = this._route.snapshot.data.location
     this.location = data.latLng
+    console.log(this.location)
     this.search()
   }
   
@@ -48,9 +49,9 @@ export class HomePage {
   }
   
   findAnunciosByPerfil(){
-    this.anuncios = []
     this._anuncioService.findByLocationAndPerfil(this.perfil, this.location)
     .subscribe(anunciosMatrix =>{
+      this.anuncios = []
       anunciosMatrix.forEach(anuncios=>{
         anuncios.forEach(anuncio=>{
           this.anuncios.push(anuncio)
@@ -60,6 +61,7 @@ export class HomePage {
           }
         })
       })
+      console.log(this.anuncios)
     })
   }
   

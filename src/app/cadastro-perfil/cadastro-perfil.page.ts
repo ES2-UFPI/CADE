@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { PerfilService } from '../perfil.service';
 import { AlertController } from '@ionic/angular';
 import { Categories } from '../Categories';
 import { Perfil } from '../perfil';
@@ -19,11 +18,10 @@ export class CadastroPerfilPage {
     @Inject('storagePerfil')private _service: StorageInterface,
       private _alert: AlertController,
     ){
-      var categorias = Object.keys(Categories).map(k => Categories[k as any]);
+      const categorias = Categories.getInstance().getLista();
       categorias.forEach(c=>{
         this.categoriasToggle.push({val:c, isChecked:false} as any)
       })
-      console.log(this.categoriasToggle)
     }
         
   async cadPerfil() {
@@ -32,8 +30,7 @@ export class CadastroPerfilPage {
         this.perfil.categorias.push(c.val)
       }
     })
-    console.log(this.perfil)
-    this._service.save('perfil',this.perfil);
+    await this._service.save('perfil',this.perfil);
     const alert = await this._alert.create({
       header: 'Cadastro realizado',
       message: 'Perfil cadastrado',
