@@ -23,7 +23,7 @@ export class HomePage {
   constructor(
     // private _homeService: HomeService,
     private _anuncioService: AnuncioService,
-    @Inject('storageInterface')private _perfilService: StorageInterface,
+    @Inject('storagePerfil')private _perfilService: StorageInterface,
     private _locationService: GeolocationService,
     private _route: ActivatedRoute,
   ) {  }

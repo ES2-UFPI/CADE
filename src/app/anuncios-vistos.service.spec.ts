@@ -1,10 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
-import { StorageService } from './storage.service';
+import { AnunciosVistosService } from './anuncios-vistos.service';
 import { Storage } from '@ionic/storage';
+import { of } from 'rxjs';
 
-describe('StorageService', () => {
+describe('AnunciosVistosService', () => {
   const spy = jasmine.createSpyObj('Storage', ['get','set'])
+
+  spy.get = () =>{
+    return of([] as string[])
+  }
 
   beforeEach(() => TestBed.configureTestingModule({
     providers:[
@@ -13,7 +18,7 @@ describe('StorageService', () => {
   }));
 
   it('should be created', () => {
-    const service: StorageService = TestBed.get(StorageService);
+    const service: AnunciosVistosService = TestBed.get(AnunciosVistosService);
     expect(service).toBeTruthy();
   });
 });

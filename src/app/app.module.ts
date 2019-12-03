@@ -13,6 +13,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { IonicStorageModule } from '@ionic/storage';
 import { PerfilService } from './perfil.service';
+import { AnunciosVistosService } from './anuncios-vistos.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +30,8 @@ import { PerfilService } from './perfil.service';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: 'storageInterface', useClass: PerfilService }
+    { provide: 'storagePerfil', useClass: PerfilService },
+    { provide: 'storageViewed', useClass: AnunciosVistosService }
   ],
   bootstrap: [AppComponent]
 })

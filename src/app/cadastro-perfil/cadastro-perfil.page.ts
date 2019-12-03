@@ -16,7 +16,7 @@ export class CadastroPerfilPage {
   perfil:Perfil = {raio:2000,categorias:[]}
 
   constructor(private _router: Router,
-    @Inject('storageInterface')private _service: StorageInterface,
+    @Inject('storagePerfil')private _service: StorageInterface,
       private _alert: AlertController,
     ){
       var categorias = Object.keys(Categories).map(k => Categories[k as any]);
