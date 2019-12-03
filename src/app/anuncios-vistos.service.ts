@@ -6,7 +6,7 @@ import { StorageService } from './storage.service';
   providedIn: 'root'
 })
 export class AnunciosVistosService implements StorageInterface{
-  anunciosVistosIds:string[] = []
+  anunciosVistosIds:String[] = []
   
   constructor(private _storage: StorageService) { 
     _storage.load('viewed').subscribe(obj => {
@@ -14,12 +14,12 @@ export class AnunciosVistosService implements StorageInterface{
     })
   }
   
-  save(chave: string, obj: string[]): void {
+  async save(chave: string, obj: String[]){
     this.anunciosVistosIds = obj
-    this._storage.save('viewed',obj)
+    await this._storage.save('viewed',obj)
   }
 
-  load(chave: string): string[]{
+  load(chave: string): String[]{
     return this.anunciosVistosIds ? this.anunciosVistosIds : []
   }
 }
