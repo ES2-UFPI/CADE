@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { CadastroPerfilPage } from './cadastro-perfil.page';
+import { PerfilService } from '../perfil.service';
 
 const routes: Routes = [
   {
@@ -22,6 +23,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [CadastroPerfilPage]
+  declarations: [CadastroPerfilPage],
 })
 export class CadastroPerfilPageModule {}
