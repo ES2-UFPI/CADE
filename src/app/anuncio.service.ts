@@ -1,19 +1,28 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Anuncio } from './anuncio';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, from } from 'rxjs';
 import { Perfil } from './perfil';
 import { ILatLng } from '@ionic-native/google-maps/ngx';
-import { map, filter } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { GeolocationService } from './geolocation.service';
+import { Storage } from '@ionic/storage';
+import { StorageInterface } from './storageInterface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnuncioService {
   anuncioLocal:Anuncio
+  anunciosVistosIds:string[] = []
 
-  constructor(private _db: AngularFirestore, private _locationService:GeolocationService) { }
+  constructor(
+    private _db: AngularFirestore,
+    private _locationService:GeolocationService,
+    @Inject('storageViewed')private _storage:StorageInterface,
+  ) { 
+    this.loadViewedStorage()
+  }
 
   saveLocal(an:Anuncio){
     this.anuncioLocal = an
@@ -23,12 +32,40 @@ export class AnuncioService {
     return this.anuncioLocal
   }
 
+  async saveViewedStorage(){
+    this._storage.save('viewed',this.anunciosVistosIds)
+  }
+  
+  loadViewedStorage(){
+    this.anunciosVistosIds = this._storage.load('viewed')
+  }
+
+  checkViewed(anuncio:Anuncio):boolean{
+    const filtered = this.anunciosVistosIds.filter(an => an == anuncio.id)
+    // return filtered.length >= 1 ? true : false
+    if(filtered.length >= 1){
+      return true
+    }else{
+      this.anunciosVistosIds.push(anuncio.id)
+      this.saveViewedStorage()
+      this.view(anuncio)
+      return false
+    }
+  }
+
   save(anuncio: Anuncio) {
     if(anuncio.id){
-      this._db.collection('anuncios').doc(anuncio.id).set(anuncio);
+      this._db.collection('anuncios').doc(anuncio.id).set(anuncio)
     }else{
-      this._db.collection('anuncios').add(anuncio);
+      anuncio.views = 0
+      this._db.collection('anuncios').add(anuncio)
     }
+  }
+  
+  view(anuncio:Anuncio){
+    console.log('view')
+    anuncio.views++
+    this._db.collection('anuncios').doc(anuncio.id).set(anuncio)
   }
 
   /* USAGE:
@@ -58,8 +95,12 @@ export class AnuncioService {
           .valueChanges({idField:'id'}) as Observable<Anuncio[]>
         ).pipe(
           map(array => array.filter(
-            anuncio => this._locationService.distance(location,anuncio.geolocalizacao) <= perfil.raio
-          ))
+            anuncio => {
+              // console.log('LoCATION '+location.lat)
+              // console.log('ANUNCIO LOCATION '+anuncio.geolocalizacao.lat)
+              // console.log('RESULTADO '+(this._locationService.distance(location,anuncio.geolocalizacao) <= perfil.raio))
+              return (this._locationService.distance(location,anuncio.geolocalizacao) <= perfil.raio)
+            }))
         )
       )
     });

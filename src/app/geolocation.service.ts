@@ -22,9 +22,6 @@ export class GeolocationService implements Resolve<any> {
 
   distance(from:ILatLng, to: ILatLng):Number{
     const distance = Spherical.computeDistanceBetween(from,to)
-    console.log('from '+from.lat+', '+from.lng)
-    console.log('to '+to.lat+', '+to.lng)
-    console.log('distance '+distance)
     return distance
   }
 

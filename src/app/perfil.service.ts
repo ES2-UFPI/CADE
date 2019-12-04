@@ -1,30 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
 import { Perfil } from './perfil';
-import { from } from 'rxjs';
+import { StorageInterface } from './storageInterface';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PerfilService {
+export class PerfilService implements StorageInterface{
   perfil:Perfil
-
-  constructor(private _storage: Storage) { }
-
-  saveStorage(perfil:Perfil){
-    this._storage.set('perfil',perfil)
-    this.saveLocal(perfil)
+  
+  constructor(private _storage: StorageService) { 
+    _storage.load('perfil').subscribe(obj => {
+      this.perfil = obj
+    })
+  }
+  
+  async save(chave: string, obj: Perfil){
+    this.perfil = obj
+    await this._storage.save('perfil',obj)
   }
 
-  loadStorage(){
-    return from(this._storage.get('perfil'))
-  }
-
-  saveLocal(perfil:Perfil){
-    this.perfil = perfil
-  }
-
-  loadLocal(){
+  load(chave: string): Perfil{
     return this.perfil
   }
 

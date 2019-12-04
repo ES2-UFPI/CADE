@@ -6,4 +6,5 @@ export interface Anuncio {
     categoria: string;
     dataInicial: Date;
     dataFinal: Date;
+    views: number;
 }
