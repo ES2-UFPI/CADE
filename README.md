@@ -4,6 +4,14 @@ Repositório do aplicativo CADÊ (Promoções e Notícias perto de você)
 
 # Changelog
 
+## v0.3.0 - 04/12/2019
+
+### New Features
+
+- Agora o usuário pode encontrar anúncios por geolocalização
+- Sistema de login e registro de usuário comum
+
+
 ## v0.2.0 - 19/10/2019
 
 ### New Features
