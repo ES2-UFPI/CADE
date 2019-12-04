@@ -45,7 +45,7 @@
             <ion-toolbar>
               <ion-input placeholder="Comente algo..." [(ngModel)]="message"></ion-input>
               <ion-buttons end>
-                <button ion-button icon-right (click)="sendMessage()">
+                <button ion-button icon-right (click)="sendMessage(an.id)">
                     Enviar
                   <ion-icon name="send"></ion-icon>
                 </button>
