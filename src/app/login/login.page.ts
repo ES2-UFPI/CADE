@@ -4,7 +4,7 @@ import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
 
 import { AlertController } from '@ionic/angular';
-import { CadAnunPage } from "../cad-anun/cad-anun.page";
+import { CadAnunPage } from '../cad-anun/cad-anun.page';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +13,8 @@ import { CadAnunPage } from "../cad-anun/cad-anun.page";
 })
 export class LoginPage implements OnInit {
 
-  username: string = ""
-  password: string = ""
+  username: string = ''
+  password: string = ''
     constructor(public afAuth: AngularFireAuth, public alert: AlertController, public router: Router) {
      }
 
@@ -27,7 +27,7 @@ export class LoginPage implements OnInit {
         const res = await this.afAuth.auth.signInWithEmailAndPassword(username, password);
         this.router.navigate(['/home'])
       } catch (err) {
-        this.showAlert("Credenciais invalidas!", "tente novamente");
+        this.showAlert('Credenciais invalidas!', 'tente novamente');
         console.dir(err);
 
       }
@@ -37,7 +37,7 @@ export class LoginPage implements OnInit {
       const alert = await this.alert.create({
         header,
         message,
-        buttons: ["Certo!"]
+        buttons: ['Certo!']
 
       })
       await alert.present();

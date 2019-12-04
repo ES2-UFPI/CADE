@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'portal-anunciante', loadChildren: './portal-anunciante/portal-anunciante.module#PortalAnunciantePageModule' },
   { path: 'maps', loadChildren: './cadastro-anuncio/maps/maps.module#MapsPageModule', resolve: {location: GeolocationService}},
   { path: 'cad-anun', loadChildren: './cad-anun/cad-anun.module#CadAnunPageModule' },
-  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule' }
 
 ];
 
