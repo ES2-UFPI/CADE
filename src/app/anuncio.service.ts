@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Anuncio } from './anuncio';
 import { Observable, combineLatest, from } from 'rxjs';
@@ -7,6 +7,7 @@ import { ILatLng } from '@ionic-native/google-maps/ngx';
 import { map } from 'rxjs/operators';
 import { GeolocationService } from './geolocation.service';
 import { Storage } from '@ionic/storage';
+import { StorageInterface } from './storageInterface';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,8 @@ export class AnuncioService {
   constructor(
     private _db: AngularFirestore,
     private _locationService:GeolocationService,
-    private _storage:Storage,
-  ) {
+    @Inject('storageViewed')private _storage:StorageInterface,
+  ) { 
     this.loadViewedStorage()
   }
 
@@ -32,13 +33,11 @@ export class AnuncioService {
   }
 
   async saveViewedStorage(){
-    this._storage.set('viewed',this.anunciosVistosIds)
+    this._storage.save('viewed',this.anunciosVistosIds)
   }
   
   loadViewedStorage(){
-    from(this._storage.get('viewed')).subscribe(obj =>{
-      this.anunciosVistosIds = obj ? obj : []
-    })
+    this.anunciosVistosIds = this._storage.load('viewed')
   }
 
   checkViewed(anuncio:Anuncio):boolean{

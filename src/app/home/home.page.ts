@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { AnuncioService } from '../anuncio.service';
 import { Anuncio } from '../anuncio';
 import { ComentarioService } from '../comentario.service';
@@ -9,7 +9,9 @@ import { ILatLng, MyLocation } from '@ionic-native/google-maps/ngx';
 import { ActivatedRoute } from '@angular/router';
 import { GeolocationService } from '../geolocation.service';
 import { HomeService } from './home.service';
+
 import * as firebase from 'firebase';
+import { StorageInterface } from '../storageInterface';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +28,7 @@ export class HomePage {
   constructor(
     // private _homeService: HomeService,
     private _anuncioService: AnuncioService,
-    private _perfilService: PerfilService,
+    @Inject('storagePerfil')private _perfilService: StorageInterface,
     private _locationService: GeolocationService,
     private _route: ActivatedRoute,
     private _comentarioService: ComentarioService
@@ -36,10 +38,11 @@ export class HomePage {
   }
   
   ionViewWillEnter(){
-    this.perfil = this._perfilService.loadLocal()
+    this.perfil = this._perfilService.load('perfil')
     // this.anuncios = this._homeService.load()
     const data:MyLocation = this._route.snapshot.data.location
     this.location = data.latLng
+    console.log(this.location)
     this.search()
   }
   
@@ -52,9 +55,9 @@ export class HomePage {
   }
   
   findAnunciosByPerfil(){
-    this.anuncios = []
     this._anuncioService.findByLocationAndPerfil(this.perfil, this.location)
     .subscribe(anunciosMatrix =>{
+      this.anuncios = []
       anunciosMatrix.forEach(anuncios=>{
         anuncios.forEach(anuncio=>{
           this.anuncios.push(anuncio)
@@ -64,6 +67,7 @@ export class HomePage {
           }
         })
       })
+      console.log(this.anuncios)
     })
   }
 

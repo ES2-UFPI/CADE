@@ -8,6 +8,7 @@ import { Anuncio } from './anuncio';
 import { Observable, of } from 'rxjs';
 import { ILatLng } from '@ionic-native/google-maps/ngx';
 import { Storage } from '@ionic/storage';
+import { AnunciosVistosService } from './anuncios-vistos.service';
 
 describe('AnuncioService Default', () => {
   let service:AnuncioService
@@ -35,6 +36,7 @@ describe('AnuncioService Default', () => {
       providers:[
         {provide: AngularFirestore, useValue: angularFirestoreSpy},
         {provide: GeolocationService, useValue: geolocationServiceSpy},
+        {provide: 'storageViewed', useClass: AnunciosVistosService},
         {provide: Storage, useValue: storageSpy},
       ],
     })

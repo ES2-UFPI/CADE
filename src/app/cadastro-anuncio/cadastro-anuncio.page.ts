@@ -32,7 +32,7 @@ export class CadastroAnuncioPage implements OnInit {
               }
     
   ngOnInit() {
-    this.categorias = Object.keys(Categories).map(k => Categories[k as any]);
+    this.categorias = Categories.getInstance().getLista();
   }
   
   ionViewWillEnter(){
