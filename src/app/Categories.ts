@@ -1,19 +1,3 @@
-// export enum Categories2 {
-//     Noticias = "Noticias",
-//     Roupas = "Roupas",
-//     Automoveis = "Automóveis",
-//     Eletronicos = "Eletrônicos",
-//     Moveis = "Móveis",
-//     Imoveis = "Imóveis",
-//     Sapatos = "Sapatos",
-//     Acessorios = "Acessórios",
-//     Livros = "Livros",
-//     Supermercado = "Supermercado",
-//     Comes_E_Bebes = "Comes e Bebes",
-//     Transporte = "Transporte",
-//     Outros = "Outros",
-// }
-
 export class Categories {
     private static instance: Categories;
     
@@ -32,20 +16,22 @@ export class Categories {
             "Transporte",
             "Outros",
     ]
-  
-    private constructor() {
+    
+    public static criarCategorias() {
+      return new Categories();
     }
-  
+
     static getInstance(): Categories {
       if (!Categories.instance) {
-        Categories.instance = new Categories();
+        Categories.instance = Categories.criarCategorias();
       }
   
       return Categories.instance;
     }
+  
 
     public getLista(){
-        return this.list
-    }
+      return this.list
+  }
   
   }

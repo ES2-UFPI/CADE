@@ -26,9 +26,7 @@ export class CadastroPerfilPage {
         
   async cadPerfil() {
     this.categoriasToggle.forEach(c=>{
-      if(c.isChecked == true){
-        this.perfil.categorias.push(c.val)
-      }
+      this.categoriaSelecionada(c);
     })
     await this._service.save('perfil',this.perfil);
     const alert = await this._alert.create({
@@ -39,6 +37,12 @@ export class CadastroPerfilPage {
     await alert.present();
     await alert.onDidDismiss();
     this._router.navigate(['/home']);
+  }
+
+  private categoriaSelecionada(c: any) {
+    if (c.isChecked == true) {
+      this.perfil.categorias.push(c.val);
+    }
   }
 
   raioText(){

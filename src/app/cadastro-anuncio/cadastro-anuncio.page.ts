@@ -59,7 +59,7 @@ export class CadastroAnuncioPage implements OnInit {
     return novoAn
   }
 
-  getLocation(){
+  getLocation() {
     let novoAn = this.objFromform()
     this._anuncioService.saveLocal(novoAn)
     this._router.navigate(['/maps']);
@@ -90,7 +90,6 @@ export class CadastroAnuncioPage implements OnInit {
     }
     return false
   }
-
   cancelar() {
     this._anuncioService.saveLocal(null)
   }
