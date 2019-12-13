@@ -12,7 +12,7 @@ import { StorageInterface } from '../storageInterface';
 })
 export class CadastroPerfilPage {
   categoriasToggle:any[] = []
-  perfil:Perfil = {raio:2000,categorias:[]}
+  perfil: Perfil = {raio:2000,categorias:[]}
 
   constructor(private _router: Router,
     @Inject('storagePerfil')private _service: StorageInterface,
@@ -31,11 +31,7 @@ export class CadastroPerfilPage {
       }
     })
     await this._service.save('perfil',this.perfil);
-    const alert = await this._alert.create({
-      header: 'Cadastro realizado',
-      message: 'Perfil cadastrado',
-      buttons: ['OK']
-    });
+    const alert = await cadastroAlerta();
     await alert.present();
     await alert.onDidDismiss();
     this._router.navigate(['/home']);
@@ -53,3 +49,11 @@ export class CadastroPerfilPage {
   }
 
 }
+async function cadastroAlerta() {
+  return await this._alert.create({
+    header: 'Cadastro realizado',
+    message: 'Perfil cadastrado',
+    buttons: ['OK']
+  });
+}
+
