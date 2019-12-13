@@ -8,7 +8,6 @@ node_js:
 branches:
   only:
     - master
-    - dev
 
 addons:
   chrome: stable
