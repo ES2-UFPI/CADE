@@ -8,21 +8,20 @@ import { GoogleMap } from '@ionic-native/google-maps/ngx';
   providedIn: 'root'
 })
 export class GeolocationService implements Resolve<any> {
-  map: Spherical
-  
+  map: Spherical;
+
   constructor() {}
-  
-  resolve(route: import("@angular/router").ActivatedRouteSnapshot, state: import("@angular/router").RouterStateSnapshot) {
-    return this.getPos()
+
+  resolve(route: import('@angular/router').ActivatedRouteSnapshot, state: import('@angular/router').RouterStateSnapshot) {
+    return this.getPos();
   }
 
-  getPos(){
-    return from(LocationService.getMyLocation())
+  getPos() {
+    return from(LocationService.getMyLocation());
   }
 
-  distance(from:ILatLng, to: ILatLng):Number{
-    const distance = Spherical.computeDistanceBetween(from,to)
-    return distance
+  distance(from: ILatLng, to: ILatLng): Number {
+    return Spherical.computeDistanceBetween(from, to);
   }
 
 }
